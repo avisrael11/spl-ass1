@@ -31,18 +31,13 @@ void Environment::start() {
 
     string command, args;
 
-
-    cout << ">";
-    cin >> command;
-    cin.ignore();
-    getline(cin, args, '\n');
-
-
-    //cout << command<< endl;
-    //cout << args<< endl;
-
-
     while (true){
+
+        cout << ">";
+        cin >> command;
+        cin.ignore();
+        getline(cin, args, '\n');
+
         if (command == "exit")
         {
             return;
@@ -132,10 +127,6 @@ void Environment::start() {
             //Error command - "<the-input-command>: Unknown command”
             cout << command << "Error command"  << endl;
         }
-        cout << ">";
-        cin >> command;
-        cin.ignore();
-        getline(cin, args, '\n');
 
     }
 
