@@ -51,8 +51,11 @@ private:
     Directory *parent;
 	int depth;
 
+
+
 public:
     Directory(string name, Directory *parent); // Constructor
+
 	/*
 	~ Directory(); 	//Destructor
 	Directory(const Directory &other);// Copy Constructor
@@ -60,6 +63,8 @@ public:
 	Directory& operator=(const Directory &other);// Copy Assignment
 	Directory& operator=(Directory &&other);// Move Assignment
 	 */
+	~Directory();
+	void deleteDir();
     Directory *getParent() const; // Return a pointer to the parent of this directory
     void setParent(Directory *newParent); // Change the parent of this directory
     void addFile(BaseFile* file); // Add the file to children
