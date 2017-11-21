@@ -25,7 +25,122 @@ Environment::~Environment(){
 	}
 }
 
+
+
 void Environment::start() {
+
+    string command, args;
+
+
+    cout << ">";
+    cin >> command;
+    cin.ignore();
+    getline(cin, args, '\n');
+
+
+    //cout << command<< endl;
+    //cout << args<< endl;
+
+
+    while (true){
+        if (command == "exit")
+        {
+            return;
+        }
+        else if (command == "pwd")
+        {
+            //pwd commad
+            BaseCommand* pwdc = new PwdCommand(args);
+            pwdc->execute(fs);
+            addToHistory(pwdc);
+            //cout << "pwd commad" << endl;
+
+        }
+        else if (command == "cd")
+        {
+            //cd commad
+            BaseCommand* cdc = new CdCommand(args);
+            cdc->execute(fs);
+            addToHistory(cdc);
+            //cout << "cd commad" << endl;
+        }
+        else if (command == "ls")
+        {
+            //ls command
+            BaseCommand* lsc = new LsCommand(args);
+            lsc->execute(fs);
+            addToHistory(lsc);
+
+        }
+        else if (command == "mkdir")
+        {
+            //mkdir command
+            BaseCommand* mkdirc = new MkdirCommand(args);
+            mkdirc->execute(fs);
+            addToHistory(mkdirc);
+
+        }
+        else if (command == "mkfile")
+        {
+            //mkfile command
+            BaseCommand* mkfilec = new MkfileCommand(args);
+            mkfilec->execute(fs);
+            addToHistory(mkfilec);
+
+        }
+        else if (command == "cp")
+        {
+            //cp command
+            BaseCommand* cpc = new CpCommand(args);
+            cpc->execute(fs);
+            addToHistory(cpc);
+
+        }
+        else if (command == "mv")
+        {
+            //mv command
+            BaseCommand* mvc = new MvCommand(args);
+            mvc->execute(fs);
+            addToHistory(mvc);
+
+        }
+        else if (command == "rename")
+        {
+            //rename command
+            BaseCommand* renamec = new RenameCommand(args);
+            renamec->execute(fs);
+            addToHistory(renamec);
+        }
+        else if (command == "rm")
+        {
+            //rm command
+            BaseCommand* rmc = new RmCommand(args);
+            rmc->execute(fs);
+            addToHistory(rmc);
+
+        }
+        else if (command == "history")
+        {
+            //history command
+            BaseCommand* historyc = new HistoryCommand("", commandsHistory);
+            historyc->execute(fs);
+            addToHistory(historyc);
+
+        }
+        else
+        {
+            //Error command - "<the-input-command>: Unknown command”
+            cout << command << "Error command"  << endl;
+        }
+        cout << ">";
+        cin >> command;
+        cin.ignore();
+        getline(cin, args, '\n');
+
+    }
+
+}
+ /*
     string input;
 	map<string, int> commandsMap;
 
@@ -58,6 +173,7 @@ void Environment::start() {
 
     }
 }
+ */
 
 FileSystem& Environment::getFileSystem(){
 	
