@@ -25,5 +25,5 @@ void ErrorCommand::execute(FileSystem &fs) {
 }
 
 string ErrorCommand::toString() {
-    return "Error Command";
+    return "ErrorCommand";
 }

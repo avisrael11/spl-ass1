@@ -34,7 +34,7 @@ void Environment::start() {
 
     while (true){
 
-        cout << ">";
+        cout << fs.getWorkingDirectory().getAbsolutePath() << ">";
         cin >> command;
         cin.ignore();
         getline(cin, args, '\n');
