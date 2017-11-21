@@ -86,34 +86,3 @@ Directory& NevigationHelper::getDeepestDirectoryInPath(FileSystem& fs, string& p
 	delete &pathVector;
 	return *retDir;
 }
-
-string NevigationHelper::getAbsolutePath(FileSystem& fs, string& path) {
-
-	if (path[0] == '/') {
-		return path;
-	}
-
-	string absPath;
-
-	vector<string> pathVector = splitPath(path);
-
-	Directory dir = fs.getWorkingDirectory();
-	int i = 0;
-
-	while (pathVector[i] == "..") {
-		if (dir.getParent() == nullptr) {
-			delete &pathVector;
-			return "Ilegal Path";
-		}
-		dir = *(dir.getParent());
-		i++;
-	}
-
-	absPath = dir.getAbsolutePath();
-	string temp = path.erase(0, 3 * (i-1) );
-	if (temp.size > 0) {
-		absPath += '/' + temp;
-	}
-	delete &pathVector;
-	return absPath;
-}

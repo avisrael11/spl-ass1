@@ -17,17 +17,17 @@ MkdirCommand::MkdirCommand(string args) : BaseCommand(args) {
 void MkdirCommand::execute(FileSystem &fs) {
 	NevigationHelper nh;
 	string str			= getArgs();
-	Directory* wd		= &(nh.getDeepestDirectoryInPath(fs, str));
-	
-	Errors err			= legalName(fs.getWorkingDirectory(), wd-<getName());
+	Directory wd		= nh.getDeepestDirectoryInPath(fs, str);
+	string wdPath		= wd.getAbsolutePath();
+	Errors err			= legalName(fs.getWorkingDirectory(), wd.getName());
 
 
-	string path = nh.getAbsolutePath(fs, str);
+	string path = nh.getAbsolutePath(str);
 	vector<string> pathVector = nh.splitPath(path);
 	vector<string>::iterator it;
 
 	for (it = pathVector.begin(); it != pathVector.end(); it++) {
-		BaseFile* bf = wd->getFileByName(*it);
+		BaseFile* bf = wd.getFileByName(*it);
 		if (bf == nullptr) {
 			createNewFolders(pathVector, it, wd);
 			break;
@@ -36,10 +36,91 @@ void MkdirCommand::execute(FileSystem &fs) {
 			err = FileExists;
 			break;
 		}
-		wd = (Directory*)bf;
+		wd = *((Directory*)bf);
 	}
 
-	delete &pathVector;
+/*	for (it = pathVector.begin(); it != pathVector.end() ; it++){
+		if (*it == wd.getName()) {
+			while (*(++it) == wd.getName()) {
+			}
+			break;
+		}
+	}
+
+	for (; it != pathVector.end(); it++){
+		err = legalName(wd, *it);
+		if (err == DirectoryAlreadyExists) {			
+			cout << errorArray[err] << endl;
+			break;
+		}
+		else if (err == FileExists) {
+			break;
+		}
+		Directory* newDir = new Directory(*it, &wd);
+		wd.addFile(newDir);
+		wd = *newDir;
+	}
+
+	*/
+/*
+	for (vector<string>::iterator it = pathNameVector.begin(); it != pathNameVector.end(); ++it) {
+		err = legal(fs.getWorkingDirectory());
+		if (OK == err) {
+			wd
+		}
+
+	}
+	if (err == OK) {
+
+		BaseFile* dir = new Directory(str, &(fs.getWorkingDirectory()));
+		fs.getWorkingDirectory().addFile(dir);
+	}
+	else {
+		cout << errorArray[err] << endl;
+	}
+	*/
+
+	delete &pathNameVector;
+
+
+
+
+	Directory* createPathIfLegal = &wd;
+
+	if (str[0] == '/') {
+		createPathIfLegal = &(fs.getRootDirectory());
+	}
+	else while (pathNameVector->back() == ".."){
+		createPathIfLegal = createPathIfLegal->getParent();
+		pathNameVector->pop_back();
+	}
+
+	BaseFile* tempFile;
+
+	while(!pathNameVector->empty()){
+		tempFile = createPathIfLegal->getFileByName(pathNameVector->back());
+		if (tempFile == nullptr || tempFile->isFile()) {
+			break;
+		}
+		createPathIfLegal = (Directory*)(tempFile);
+		pathNameVector->pop_back();
+	}
+
+	if (pathNameVector->empty()) {
+		err = DirectoryAlreadyExists;
+	}
+	else if(tempFile->isFile())	{
+		err = FileExists;
+	}
+	else {
+		while (!pathNameVector->empty()) {
+			Directory* dir = new Directory(pathNameVector->back(), createPathIfLegal);
+			createPathIfLegal->addFile(dir);
+			createPathIfLegal = dir;
+			pathNameVector->pop_back();
+		}
+	}
+
 }
 
 string MkdirCommand::toString() {
@@ -71,11 +152,4 @@ string MkdirCommand::extractName(string str) {
 		return str.substr(nameStart);
 	}
 	return str;
-}
-
-void MkdirCommand::createNewFolders(vector<string>& pathVector, vector<string>::iterator& it, Directory* wd) {
-	for (; it != pathVector.end(); ++it) {
-		Directory* newDir = new Directory(*it, wd);
-		wd = newDir;
-	}
 }

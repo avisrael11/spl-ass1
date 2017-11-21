@@ -33,7 +33,6 @@ void Environment::start() {
 			BaseCommand* mkdir = new MkdirCommand("name1/name2/name3");
 			mkdir->execute(fs);
 		}
-		cout << fs.getRootDirectory().getChildren().back() << endl;
 
     }
 }
