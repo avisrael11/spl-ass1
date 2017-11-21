@@ -3,6 +3,7 @@
 //
 
 #include "../include/Commands.h"
+#include <iostream>
 
 using namespace std;
 /*
@@ -19,9 +20,10 @@ ErrorCommand::ErrorCommand(string args) : BaseCommand(args) {
 }
 
 void ErrorCommand::execute(FileSystem &fs) {
-
+    string command = getArgs().substr(0, getArgs().find(' '));
+    cout << command << ": Unknown command" << endl;
 }
 
 string ErrorCommand::toString() {
-    return std::string();
+    return "Error Command";
 }

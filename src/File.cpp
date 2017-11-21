@@ -12,6 +12,11 @@ private:
 public:
     File(string name, int size); // Constructor
     int getSize(); // Return the size of the file
+    ~ File(); 	//Destructor
+	File(const File &other);// Copy Constructor
+	File(File &&other);// Move Constructor
+	File& operator=(const File &other);// Copy Assignment
+	File& operator=(File &&other);// Move Assignment
 
 };
 */

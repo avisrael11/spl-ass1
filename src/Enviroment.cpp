@@ -15,6 +15,7 @@
 using namespace std;
 
 void printFS(Directory dir);
+
 Environment::Environment() {
 	
 }
@@ -124,8 +125,11 @@ void Environment::start() {
         }
         else
         {
-            //Error command - "<the-input-command>: Unknown command”
-            cout << command << "Error command"  << endl;
+            //Error command
+            string fullcomand = command + " " + args;
+            BaseCommand* errorc = new ErrorCommand(fullcomand);
+            errorc->execute(fs);
+            addToHistory(errorc);
         }
 
     }
