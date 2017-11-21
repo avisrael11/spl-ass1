@@ -16,6 +16,7 @@ private:
 
 public:
     Environment();
+	~Environment();
     void start();
     FileSystem& getFileSystem(); // Get a reference to the file system
     void addToHistory(BaseCommand *command); // Add a new command to the history

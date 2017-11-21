@@ -54,6 +54,7 @@ private:
 	array<std::string, 3> errorArray = { "OK", "The directory already exists", "Ther is a file with the same name" };
 	Errors legalName(Directory &dir, string& dirName);
 	string extractName(string str);
+	void createNewFolders(vector<string>& pathVector, vector<string>::iterator& it, Directory* wd);
 
 public:
     MkdirCommand(string args);
