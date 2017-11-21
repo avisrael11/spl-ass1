@@ -14,9 +14,15 @@
 
 using namespace std;
 
-
+void printFS(Directory dir);
 Environment::Environment() {
 	
+}
+
+Environment::~Environment(){	
+	for (vector<BaseCommand*>::iterator it = commandsHistory.begin(); it != commandsHistory.end(); it++) {
+		delete *it;
+	}
 }
 
 void Environment::start() {
@@ -32,6 +38,22 @@ void Environment::start() {
 		if (input == "mkdir") {
 			BaseCommand* mkdir = new MkdirCommand("name1/name2/name3");
 			mkdir->execute(fs);
+			addToHistory(mkdir);
+		}
+		else if (input == "history") {
+			BaseCommand* history = new HistoryCommand("", commandsHistory);
+			history->execute(fs);
+			addToHistory(history);
+		}
+		else if (input == "pwd") {
+			BaseCommand* pwd = new PwdCommand("");
+			pwd->execute(fs);
+			addToHistory(pwd);
+		}
+		else if (input == "cd") {
+			BaseCommand* cd = new CdCommand("name1");
+			cd->execute(fs);
+			addToHistory(cd);
 		}
 
     }
@@ -48,4 +70,22 @@ void Environment::addToHistory(BaseCommand *command) {
 
 const vector<BaseCommand *> &Environment::getHistory() const {
     return commandsHistory;
+}
+
+void printFS(Directory dir) {	
+	vector<BaseFile*> v = dir.getChildren();
+
+	cout << dir.getName() << endl;
+	for (vector<BaseFile*>::iterator it = v.begin(); it != v.end(); ++it) {
+		cout << (*it)->getName() << ", ";
+	}
+	cout << endl;
+	
+	for (vector<BaseFile*>::iterator it = v.begin(); it != v.end(); ++it) {
+		if (!(*it)->isFile()) {
+			printFS( *( (Directory*)(*it) ) );
+		}
+	}
+
+
 }

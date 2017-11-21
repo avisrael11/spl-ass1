@@ -4,8 +4,8 @@
 
 using namespace std;
 
-BaseFile* NevigationHelper::getBaseFileFromPath(FileSystem& fs, string& path) {
-	vector<string> pathVector = splitPath(path);
+BaseFile* NevigationHelper::getBaseFileFromPath(FileSystem& fs, string path) {
+	vector<string>* pathVector = splitPath(path);
 
 	Directory* dir = &(fs.getWorkingDirectory());	
 	int i		  = 0;
@@ -13,18 +13,18 @@ BaseFile* NevigationHelper::getBaseFileFromPath(FileSystem& fs, string& path) {
 	if (path[0] == '/') {
 		dir = &(fs.getRootDirectory());
 	}
-	else while (pathVector[i] == "..") {
+	else while ((*pathVector)[i] == "..") {
 		dir = dir->getParent();
 		i++;
 	}
 
-	BaseFile* tempFile;
-	int vectorSize = pathVector.size();
+	BaseFile* tempFile = nullptr;
+	int vectorSize = pathVector->size();
 
 	while(i < vectorSize) {
-		tempFile = dir->getFileByName(pathVector[i]);
+		tempFile = dir->getFileByName((*pathVector)[i]);
 		if (tempFile == nullptr) {
-			delete &pathVector;
+			delete pathVector;
 			return nullptr;
 		}
 		if (tempFile->isFile()) {
@@ -34,11 +34,11 @@ BaseFile* NevigationHelper::getBaseFileFromPath(FileSystem& fs, string& path) {
 		dir = (Directory*)(tempFile);
 		++i;
 	}
-	delete &pathVector;
+	delete pathVector;
 	return i == vectorSize ? tempFile : nullptr;
 }
 
-vector<string>& NevigationHelper::splitPath(string& path) {
+vector<string>* NevigationHelper::splitPath(string path) {
 	vector<string>* v = new vector<string>;
 
 	while (path.size() > 0) {
@@ -56,26 +56,26 @@ vector<string>& NevigationHelper::splitPath(string& path) {
 	}
 
 	reverse(v->begin(), v->end());
-	return *v;
+	return v;
 }
 
-Directory& NevigationHelper::getDeepestDirectoryInPath(FileSystem& fs, string& path) {
-	vector<string> pathVector = splitPath(path);
+Directory& NevigationHelper::getDeepestDirectoryInPath(FileSystem& fs, string path) {
+	vector<string>* pathVector = splitPath(path);
 
 	Directory* retDir = &(fs.getWorkingDirectory());
-	int i = 0;
+	size_t i = 0;
 
 	if (path[0] == '/') {
 		retDir = &(fs.getRootDirectory());
 	}
-	else while (pathVector[i] == ".." && retDir != &(fs.getRootDirectory()) ) {
+	else while ((*pathVector)[i] == ".." && retDir != &(fs.getRootDirectory()) ) {
 		retDir = retDir->getParent();
 		i++;
 	}
 
 	BaseFile* tempFile;
-	while (i < pathVector.size()) {
-		tempFile = retDir->getFileByName(pathVector[i]);
+	while (i < pathVector->size()) {
+		tempFile = retDir->getFileByName((*pathVector)[i]);
 		if (tempFile == nullptr || tempFile->isFile()) {
 			break;
 		}
@@ -83,6 +83,43 @@ Directory& NevigationHelper::getDeepestDirectoryInPath(FileSystem& fs, string& p
 		++i;
 	}
 
-	delete &pathVector;
+	delete pathVector;
 	return *retDir;
+}
+
+string NevigationHelper::getAbsolutePath(FileSystem& fs, string path) {
+
+	if (path[0] == '/') {
+		return path;
+	}
+
+	string absPath;
+
+	vector<string>* pathVector = splitPath(path);
+
+	Directory dir = fs.getWorkingDirectory();
+	int i = 0;
+
+	while ((*pathVector)[i] == "..") {
+		if (dir.getParent() == nullptr) {
+			delete pathVector;
+			return "Ilegal Path";
+		}
+		dir = *(dir.getParent());
+		i++;
+	}
+
+	absPath = dir.getAbsolutePath();
+	if (absPath != "/") {
+		absPath += '/';
+	}
+	if (i > 0) {
+		i--;
+	}
+	string temp = path.erase(0, 3 * i);
+	if (temp.size() > 0) {
+		absPath += temp;
+	}
+	delete pathVector;
+	return absPath;
 }

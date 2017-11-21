@@ -4,6 +4,8 @@
 
 #include "../include/Commands.h"
 
+#include <iostream>
+
 using namespace std;
 /*
 class PwdCommand : public BaseCommand {
@@ -19,9 +21,9 @@ PwdCommand::PwdCommand(string args) : BaseCommand(args) {
 }
 
 void PwdCommand::execute(FileSystem &fs) {
-
+	cout << fs.getWorkingDirectory().getAbsolutePath() << endl;
 }
 
 string PwdCommand::toString() {
-    return std::string();
+    return "pwd";
 }
