@@ -21,8 +21,40 @@ public:
 
 };*/
 
-FileSystem::FileSystem():rootDirectory(new Directory("/", nullptr)), workingDirectory(rootDirectory)  {
+FileSystem::FileSystem():rootDirectory(new Directory("/", nullptr)), workingDirectory(rootDirectory)  {}
+FileSystem:: ~FileSystem() {
+	rootDirectory->deleteDir();
+}
 
+
+FileSystem::FileSystem(const FileSystem& other){
+	rootDirectory = new Directory(other.getRootDirectory());
+	workingDirectory = (Directory*)rootDirectory->getFileByName(other.getWorkingDirectory().getName());
+}
+
+FileSystem::FileSystem(FileSystem&& other){}
+
+
+FileSystem& FileSystem::operator=(const FileSystem& other){
+	if (this != &other) {
+		rootDirectory->deleteDir();
+
+		rootDirectory	 = new Directory(other.getRootDirectory());
+		workingDirectory = (Directory*)rootDirectory->getFileByName(other.getWorkingDirectory().getName());
+	}
+	return *this;
+}
+
+FileSystem& FileSystem::operator=(FileSystem&& other){
+	if (this != &other) {
+		rootDirectory->deleteDir();
+		rootDirectory    = other.rootDirectory;
+		workingDirectory = other.workingDirectory;
+
+		other.rootDirectory		= nullptr;
+		other.workingDirectory  = nullptr;
+	}
+	return *this;
 }
 
 Directory &FileSystem::getRootDirectory() const {

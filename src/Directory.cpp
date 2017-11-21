@@ -3,6 +3,7 @@
 //
 #include "../include/Files.h"
 #include <algorithm>
+#include <iostream>
 
 
 
@@ -24,6 +25,21 @@ Directory::Directory(string name, Directory *parent) : BaseFile(name), parent(pa
 	if (parent != nullptr) {
 		depth = parent->getDepth() + 1;
 	}
+
+	cout << "directory constractor: " << getName() << endl;
+}
+
+Directory::~Directory() {
+	cout << "directory destractor: " << getName() << endl;
+}
+void Directory::deleteDir() {
+	for (vector<BaseFile*>::iterator it = children.begin(); it != children.end(); ++it) {
+		if (!(*it)->isFile()) {
+			((Directory*)(*it))->deleteDir();
+			delete (*it);
+		}
+	}
+	
 }
 
 Directory *Directory::getParent() const {
@@ -52,6 +68,10 @@ void Directory::addFile(BaseFile *file) {
 void Directory::removeFile(string name) {
     for(vector<BaseFile*>::iterator iterator1 = children.begin(); iterator1 != children.end(); ++iterator1){
         if((*iterator1)->getName() == name){
+			if (!(*iterator1)->isFile()) {
+				((Directory*)(*iterator1))->deleteDir();
+				delete (*iterator1);
+			}
             children.erase(iterator1);
         }
 
