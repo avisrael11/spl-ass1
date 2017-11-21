@@ -30,14 +30,19 @@ Environment::~Environment(){
 
 void Environment::start() {
 
-    string command, args;
+    string command, args, fullLine;
+
 
     while (true){
 
         cout << fs.getWorkingDirectory().getAbsolutePath() << ">";
-        cin >> command;
-        cin.ignore();
-        getline(cin, args, '\n');
+        getline(cin, fullLine, '\n');
+        command = fullLine.substr(0, fullLine.find(' '));
+        if (command.length()==fullLine.length())
+            args = fullLine.substr(command.length(), fullLine.length());
+        else
+            args = fullLine.substr(command.length()+1, fullLine.length());
+
 
         if (command == "exit")
         {
@@ -126,8 +131,7 @@ void Environment::start() {
         else
         {
             //Error command
-            string fullcomand = command + " " + args;
-            BaseCommand* errorc = new ErrorCommand(fullcomand);
+            BaseCommand* errorc = new ErrorCommand(fullLine);
             errorc->execute(fs);
             addToHistory(errorc);
         }
