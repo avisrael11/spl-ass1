@@ -7,25 +7,6 @@
 using namespace std;
 
 
-/*
-class FileSystem {
-private:
-    Directory* rootDirectory;
-    Directory* workingDirectory;
-public:
-    FileSystem();
-    ~FileSystem(); 	//Destructor
-    FileSystem(const FileSystem &other);// Copy Constructor
-    FileSystem(FileSystem &&other);// Move Constructor
-    FileSystem& operator=(const FileSystem &other);// Copy Assignment
-    FileSystem& operator=(FileSystem &&other);// Move Assignment
-    Directory& getRootDirectory() const; // Return reference to the root directory
-    Directory& getWorkingDirectory() const; // Return reference to the working directory
-    void setWorkingDirectory(Directory *newWorkingDirectory); // Change the working directory of the file system
-
-
-};*/
-
 FileSystem::FileSystem():rootDirectory(new Directory("/", nullptr)), workingDirectory(rootDirectory)  {}
 FileSystem:: ~FileSystem() {
 	rootDirectory->deleteDir();
@@ -37,15 +18,20 @@ FileSystem::FileSystem(const FileSystem& other){
 	workingDirectory = (Directory*)rootDirectory->getFileByName(other.getWorkingDirectory().getName());
 }
 
-FileSystem::FileSystem(FileSystem&& other){}
+FileSystem::FileSystem(FileSystem&& other): rootDirectory(other.rootDirectory), workingDirectory(other.workingDirectory){
+	
+	other.workingDirectory	= nullptr;
+	other.rootDirectory		= nullptr;
+}
 
 
 FileSystem& FileSystem::operator=(const FileSystem& other){
 	if (this != &other) {
 		rootDirectory->deleteDir();
 
-		rootDirectory	 = new Directory(other.getRootDirectory());
+		*rootDirectory	 = other.getRootDirectory();
 		workingDirectory = (Directory*)rootDirectory->getFileByName(other.getWorkingDirectory().getName());
+		rootDirectory->setName(other.getRootDirectory().getName());
 	}
 	return *this;
 }
@@ -53,8 +39,10 @@ FileSystem& FileSystem::operator=(const FileSystem& other){
 FileSystem& FileSystem::operator=(FileSystem&& other){
 	if (this != &other) {
 		rootDirectory->deleteDir();
-		rootDirectory    = other.rootDirectory;
-		workingDirectory = other.workingDirectory;
+
+		*rootDirectory	 = other.getRootDirectory();
+		workingDirectory = (Directory*)rootDirectory->getFileByName(other.getWorkingDirectory().getName());
+		rootDirectory->setName(other.getRootDirectory().getName());
 
 		other.rootDirectory		= nullptr;
 		other.workingDirectory  = nullptr;

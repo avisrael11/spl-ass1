@@ -31,25 +31,6 @@ BaseFile::BaseFile(string name) : name(name){
 
 }
 
-/*
-// Copy Constructor
-BaseFile::BaseFile(const BaseFile &other) {
-
-}
-
-BaseFile::BaseFile(BaseFile &&other) {
-
-}
-
-BaseFile &BaseFile::operator=(const BaseFile &other) {
-    return <#initializer#>;
-}
-
-BaseFile &BaseFile::operator=(BaseFile &&other) {
-    return <#initializer#>;
-}
-*/
-
 
 string BaseFile::getName() const {
     return name;
@@ -58,7 +39,6 @@ string BaseFile::getName() const {
 void BaseFile::setName(string newName) {
     name = newName;
 }
-
 
 
 

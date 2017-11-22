@@ -109,7 +109,7 @@ string NevigationHelper::getAbsolutePath(FileSystem& fs, string path) {
 			delete pathVector;
 			return "Ilegal Path";
 		}
-		dir = *(dir.getParent());
+		dir = (*(dir.getParent()));
 		i++;
 	}
 

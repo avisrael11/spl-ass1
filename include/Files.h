@@ -15,18 +15,12 @@ private:
 
 public:
 	BaseFile(string name);
-	/*
-	virtual ~ BaseFile(); 	//Destructor
-	BaseFile(const BaseFile &other);// Copy Constructor
-	BaseFile(BaseFile &&other);// Move Constructor
-	BaseFile& operator=(const BaseFile &other);// Copy Assignment
-	BaseFile& operator=(BaseFile &&other);// Move Assignment
-	 */
 	string getName() const;
 	void setName(string newName);
 	virtual int getSize() = 0;
 
 	virtual bool isFile() = 0;
+
 };
 
 class File : public BaseFile {
@@ -35,13 +29,6 @@ private:
 
 public:
     File(string name, int size); // Constructor
-	/*
-	~ File(); 	//Destructor
-	File(const File &other);// Copy Constructor
-	File(File &&other);// Move Constructor
-	File& operator=(const File &other);// Copy Assignment
-	File& operator=(File &&other);// Move Assignment
-	 */
     int getSize(); // Return the size of the file
 
 	virtual bool isFile();
@@ -54,18 +41,17 @@ private:
     Directory *parent;
 	int depth;
 
-
+	void copyChildren(const Directory& other);
 
 public:
     Directory(string name, Directory *parent); // Constructor
 
-/*
 	Directory(const Directory &other);// Copy Constructor
-	Directory(File &&other);// Move Constructor
+	Directory(Directory &&other);// Move Constructor
 	Directory& operator=(const Directory &other);// Copy Assignment
 	Directory& operator=(Directory &&other);// Move Assignment
-	*/
 	~Directory();
+
 	void deleteDir();
     Directory *getParent() const; // Return a pointer to the parent of this directory
     void setParent(Directory *newParent); // Change the parent of this directory
@@ -83,6 +69,7 @@ public:
 	bool isContainFile(string fileName);		//Return true if a file with the specified name is in children
 	BaseFile* getFileByName(string fileName);	//Return the file with the specified name from children, nullptr if not exist
 	int getDepth();								//Return the depth of the directory in the file system (root depth = 0)
+
 
 };
 
