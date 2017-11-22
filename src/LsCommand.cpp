@@ -37,8 +37,11 @@ void LsCommand::execute(FileSystem &fs) {
 
     } else
     {
-       /*******check valid path ***/
-        /***If <path> doesn’t exist print out “The system cannot find the path specified”***/
+        if(!nh.isPathLegit(fs, str)) {
+            cout << "The system cannot find the path specified" << endl;
+            return;
+        }
+
     }
 
     string path = nh.getAbsolutePath(fs, str);

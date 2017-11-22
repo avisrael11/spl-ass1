@@ -30,6 +30,6 @@ int File::getSize() {
 }
 
 bool File::isFile() {
-	return false;
+	return true;
 }
 
