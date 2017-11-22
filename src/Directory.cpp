@@ -30,8 +30,39 @@ Directory::Directory(string name, Directory *parent) : BaseFile(name), parent(pa
 }
 
 Directory::~Directory() {
-	cout << "directory destractor: " << getName() << endl;
+	if (verbose == 1) {
+		cout << "directory destractor: " << getName() << endl;
+	}
 }
+/*
+Directory::Directory(const Directory &other) {
+	for (vector<BaseFile*>::iterator it = other.getChildren().begin(); it != other.getChildren().end(); ++it) {
+		BaseFile* bnewBf;
+
+		if((*it)->isFile()){
+			newBf = new File((*it)->getName(), (*it)->getSize());
+		}
+		else{
+			newBf = new Directory(*it);
+		}
+		children.push_back(newBf);
+	}
+	name = other.getName();
+	parent = other.getParent();
+}
+Directory::Directory(File &&other) {
+
+}
+
+Directory& Directory::operator=(const Directory &other) {
+
+
+}
+
+Directory& Directory::operator=(Directory &&other) {
+
+}
+*/
 void Directory::deleteDir() {
 	for (vector<BaseFile*>::iterator it = children.begin(); it != children.end(); ++it) {
 		if (!(*it)->isFile()) {
@@ -139,7 +170,12 @@ bool Directory::isContainFile(string fileName) {
 }
 
 BaseFile* Directory::getFileByName(string fileName) {
+	if (fileName.size() == 0) {
+		return this;
+	}
+
 	for (vector<BaseFile*>::iterator it = children.begin(); it != children.end(); ++it) {
+		//string s = (*it)->getName();
 		if ((*it)->getName() == fileName ) {
 			return *it;
 		}

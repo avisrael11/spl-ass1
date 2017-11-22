@@ -5,21 +5,25 @@
 using namespace std;
 
 BaseFile* NevigationHelper::getBaseFileFromPath(FileSystem& fs, string path) {
+	if (path == "/") {
+		return &(fs.getRootDirectory());
+	}
+
 	vector<string>* pathVector = splitPath(path);
 
 	Directory* dir = &(fs.getWorkingDirectory());	
-	int i		  = 0;
+	int i		   = 0;
+	int vectorSize = pathVector->size();
 
 	if (path[0] == '/') {
 		dir = &(fs.getRootDirectory());
 	}
-	else while ((*pathVector)[i] == "..") {
+	else while (i < vectorSize && (*pathVector)[i] == "..") {
 		dir = dir->getParent();
 		i++;
 	}
 
 	BaseFile* tempFile = nullptr;
-	int vectorSize = pathVector->size();
 
 	while(i < vectorSize) {
 		tempFile = dir->getFileByName((*pathVector)[i]);
@@ -68,7 +72,7 @@ Directory& NevigationHelper::getDeepestDirectoryInPath(FileSystem& fs, string pa
 	if (path[0] == '/') {
 		retDir = &(fs.getRootDirectory());
 	}
-	else while ((*pathVector)[i] == ".." && retDir != &(fs.getRootDirectory()) ) {
+	else while (i < pathVector->size() && (*pathVector)[i] == ".." && retDir != &(fs.getRootDirectory()) ) {
 		retDir = retDir->getParent();
 		i++;
 	}
@@ -98,9 +102,9 @@ string NevigationHelper::getAbsolutePath(FileSystem& fs, string path) {
 	vector<string>* pathVector = splitPath(path);
 
 	Directory dir = fs.getWorkingDirectory();
-	int i = 0;
+	size_t i = 0;
 
-	while ((*pathVector)[i] == "..") {
+	while (i < pathVector->size() && (*pathVector)[i] == "..") {
 		if (dir.getParent() == nullptr) {
 			delete pathVector;
 			return "Ilegal Path";
@@ -110,16 +114,43 @@ string NevigationHelper::getAbsolutePath(FileSystem& fs, string path) {
 	}
 
 	absPath = dir.getAbsolutePath();
-	if (absPath != "/") {
-		absPath += '/';
-	}
-	if (i > 0) {
-		i--;
-	}
 	string temp = path.erase(0, 3 * i);
 	if (temp.size() > 0) {
+		if (absPath != "/"){
+			absPath += '/';
+		}
 		absPath += temp;
 	}
 	delete pathVector;
 	return absPath;
+}
+
+bool NevigationHelper::isPathLegit(FileSystem& fs, string path) {
+	string absPath				= getAbsolutePath(fs, path);
+	vector<string>* pathVector  = splitPath(absPath);
+	BaseFile* bf				= &(fs.getRootDirectory());
+	bool ret					= false;
+
+	for (vector<string>::iterator it = pathVector->begin(); it != pathVector->end(); ++it) {
+		if (bf->isFile()) {
+			if (++it == pathVector->end()) {
+				ret = true;
+			}
+			break;
+		}
+		
+		vector<BaseFile*> children = ((Directory*)bf)->getChildren();
+		for (vector<BaseFile*>::iterator bfIt = children.begin(); bfIt != children.end(); ++bfIt) {
+			if ((*bfIt)->getName() == *it) {
+				bf = *bfIt;
+				break;
+			}
+			if (bfIt + 1 == children.end()) {
+				delete pathVector;
+				return false;
+			}
+		}
+	} 
+		delete pathVector;
+		return ret;
 }

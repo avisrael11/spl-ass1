@@ -4,6 +4,9 @@
 #include <string>
 #include <vector>
 
+#include "GlobalVariables.h"
+
+
 using namespace std;
 
 class BaseFile {
@@ -56,13 +59,12 @@ private:
 public:
     Directory(string name, Directory *parent); // Constructor
 
-	/*
-	~ Directory(); 	//Destructor
+/*
 	Directory(const Directory &other);// Copy Constructor
 	Directory(File &&other);// Move Constructor
 	Directory& operator=(const Directory &other);// Copy Assignment
 	Directory& operator=(Directory &&other);// Move Assignment
-	 */
+	*/
 	~Directory();
 	void deleteDir();
     Directory *getParent() const; // Return a pointer to the parent of this directory
