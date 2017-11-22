@@ -65,6 +65,7 @@ public:
 
 class MkfileCommand : public BaseCommand {
 private:
+	void createNewFile(vector<string>& pathVector, vector<string>::iterator& it, Directory* wd, int size);
 public:
     MkfileCommand(string args);
     void execute(FileSystem & fs);

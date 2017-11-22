@@ -1,5 +1,6 @@
 //
-// Created by Aviv Israel on 15/11/2017.
+// cp – Copy a file or directory to a destination.
+//Syntax: cp <source-path> <destination-path>
 //
 
 #include "../include/Commands.h"

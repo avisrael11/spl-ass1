@@ -1,6 +1,5 @@
 #include "../include/NevigationHelper.h"
 
-#include <algorithm>
 
 using namespace std;
 
@@ -129,13 +128,16 @@ bool NevigationHelper::isPathLegit(FileSystem& fs, string path) {
 	string absPath				= getAbsolutePath(fs, path);
 	vector<string>* pathVector  = splitPath(absPath);
 	BaseFile* bf				= &(fs.getRootDirectory());
-	bool ret					= false;
+	bool ret					= true;
 
 	for (vector<string>::iterator it = pathVector->begin(); it != pathVector->end(); ++it) {
 		if (bf->isFile()) {
 			if (++it == pathVector->end()) {
 				ret = true;
+			}else{
+				ret = false;
 			}
+
 			break;
 		}
 		

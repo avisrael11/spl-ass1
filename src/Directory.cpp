@@ -5,9 +5,6 @@
 
 using namespace std;
 
-bool compareByName(BaseFile *lhs, BaseFile *rhs);
-bool compareBySize(BaseFile *lhs, BaseFile *rhs);
-
 Directory::Directory(string name, Directory *parent) : BaseFile(name), parent(parent){
 	if (parent != nullptr) {
 		depth = parent->getDepth() + 1;
@@ -182,6 +179,7 @@ BaseFile* Directory::getFileByName(string fileName) {
 	}
 	return nullptr;
 }
+<<<<<<< HEAD
 
 void Directory::copyChildren(const Directory& other) {
 	vector<BaseFile*> ch = other.children;
