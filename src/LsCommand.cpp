@@ -1,5 +1,7 @@
 //
-// Created by Aviv Israel on 15/11/2017.
+// ls: Display the list of files and subdirectories of a directory
+// Syntax:  ls [-s] <path> - Display the list of files and subdirectories in <path>
+//          ls [-s] - Display the list of files and subdirectories in the working directory
 //
 
 #include "../include/Commands.h"
@@ -14,8 +16,6 @@ LsCommand::LsCommand(string args) : BaseCommand(args) {
 }
 
 void LsCommand::execute(FileSystem &fs) {
-
-
     NevigationHelper nh;
     string str = getArgs();
     if (str.compare(0, 2, "-s") == 0)//if there is argument [-s]
