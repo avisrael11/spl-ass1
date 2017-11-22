@@ -36,6 +36,7 @@ public:
 
 class LsCommand : public BaseCommand {
 private:
+	bool isLss;
 public:
     LsCommand(string args);
     void execute(FileSystem & fs);

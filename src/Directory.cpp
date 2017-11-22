@@ -99,7 +99,6 @@ vector<BaseFile *> Directory::getChildren() {
 
 int Directory::getSize() {
     int totalSize = 0;
-
     for(vector<BaseFile*>::iterator iterator1 = children.begin(); iterator1 != children.end(); ++iterator1){
         totalSize += (*iterator1)->getSize();
     }
