@@ -20,7 +20,7 @@ void MkfileCommand::execute(FileSystem &fs) {
     NevigationHelper nh;
     string str              = getArgs();
     string path             = nh.getAbsolutePath(fs, str.substr(0, str.find(' ')));
-    int size                = stoi( str.substr(path.length()+1, str.length()));
+    int size                = stoi(str.substr(path.length(), str.length()));
     Directory* wd           = &(fs.getRootDirectory());
 
     vector<string>* pathVector = nh.splitPath(path);
