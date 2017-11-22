@@ -10,7 +10,7 @@
 
 using namespace std;
 
-
+/*
 // compare by name function
 bool compareByName( BaseFile *lhs,  BaseFile *rhs);
 
@@ -19,7 +19,7 @@ bool compareByName( BaseFile *lhs,  BaseFile *rhs);
 
 
 // compare by size function
-bool compareBySize( BaseFile *lhs, BaseFile *rhs);
+bool compareBySize( BaseFile *lhs, BaseFile *rhs);*/
 
 Directory::Directory(string name, Directory *parent) : BaseFile(name), parent(parent){
 	if (parent != nullptr) {
@@ -181,7 +181,7 @@ BaseFile* Directory::getFileByName(string fileName) {
 	}
 	return nullptr;
 }
-
+/*
 bool compareByName(BaseFile *lhs, BaseFile *rhs) { return lhs->getName() < rhs->getName(); }
 
-bool compareBySize( BaseFile *lhs, BaseFile *rhs) { return lhs->getSize() < rhs->getSize(); }
+bool compareBySize( BaseFile *lhs, BaseFile *rhs) { return lhs->getSize() < rhs->getSize(); }*/

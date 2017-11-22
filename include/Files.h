@@ -25,8 +25,11 @@ public:
 	string getName() const;
 	void setName(string newName);
 	virtual int getSize() = 0;
-
 	virtual bool isFile() = 0;
+
+	bool static compareByName( BaseFile *lhs,  BaseFile *rhs);// compare by name function
+
+	bool static compareBySize( BaseFile *lhs, BaseFile *rhs);// compare by size function
 };
 
 class File : public BaseFile {
