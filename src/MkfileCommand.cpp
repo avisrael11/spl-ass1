@@ -18,10 +18,12 @@ MkfileCommand::MkfileCommand(string args) : BaseCommand(args) {
 void MkfileCommand::execute(FileSystem &fs) {
     NevigationHelper nh;
     string str              = getArgs();
-    string path             = nh.getAbsolutePath(fs, str.substr(0, str.find(' ')));
+    string path             = str.substr(0, str.find(' '));
     int size                = stoi(str.substr(path.length(), str.length()));
+
     Directory* wd           = &(fs.getRootDirectory());
 
+    path = nh.getAbsolutePath(fs, path);
     vector<string>* pathVector = nh.splitPath(path);
     vector<string>::iterator it;
     for (it = pathVector->begin(); it != pathVector->end(); it++) {
