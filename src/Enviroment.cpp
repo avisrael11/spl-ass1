@@ -5,16 +5,14 @@
 #include "../include/Files.h"
 #include "../include/Commands.h"
 #include "../include/FileSystem.h"
+#include "../include/VerboseHandler.h"
 
 #include <string>
 #include <vector>
-#include <map>
 
 #include <iostream>
 
 using namespace std;
-
-void printFS(Directory dir);
 
 Environment::Environment() {
 	
@@ -31,12 +29,17 @@ Environment::~Environment(){
 void Environment::start() {
 
     string command, args, fullLine;
-
+	VerboseHandler vh;
 
     while (true){
 
         cout << fs.getWorkingDirectory().getAbsolutePath() << ">";
         getline(cin, fullLine, '\n');
+
+		if (vh.printCommands()) {
+			cout << fullLine << endl;
+		}
+
         command = fullLine.substr(0, fullLine.find(' '));
         if (command.length()==fullLine.length())
             args = fullLine.substr(command.length(), fullLine.length());
@@ -54,8 +57,6 @@ void Environment::start() {
             BaseCommand* pwdc = new PwdCommand(args);
             pwdc->execute(fs);
             addToHistory(pwdc);
-            //cout << "pwd commad" << endl;
-
         }
         else if (command == "cd")
         {
@@ -63,7 +64,6 @@ void Environment::start() {
             BaseCommand* cdc = new CdCommand(args);
             cdc->execute(fs);
             addToHistory(cdc);
-            //cout << "cd commad" << endl;
         }
         else if (command == "ls")
         {
@@ -71,7 +71,6 @@ void Environment::start() {
             BaseCommand* lsc = new LsCommand(args);
             lsc->execute(fs);
             addToHistory(lsc);
-
         }
         else if (command == "mkdir")
         {
@@ -79,7 +78,6 @@ void Environment::start() {
             BaseCommand* mkdirc = new MkdirCommand(args);
             mkdirc->execute(fs);
             addToHistory(mkdirc);
-
         }
         else if (command == "mkfile")
         {
@@ -87,7 +85,6 @@ void Environment::start() {
             BaseCommand* mkfilec = new MkfileCommand(args);
             mkfilec->execute(fs);
             addToHistory(mkfilec);
-
         }
         else if (command == "cp")
         {
@@ -95,7 +92,6 @@ void Environment::start() {
             BaseCommand* cpc = new CpCommand(args);
             cpc->execute(fs);
             addToHistory(cpc);
-
         }
         else if (command == "mv")
         {
@@ -103,7 +99,6 @@ void Environment::start() {
             BaseCommand* mvc = new MvCommand(args);
             mvc->execute(fs);
             addToHistory(mvc);
-
         }
         else if (command == "rename")
         {
@@ -118,7 +113,6 @@ void Environment::start() {
             BaseCommand* rmc = new RmCommand(args);
             rmc->execute(fs);
             addToHistory(rmc);
-
         }
         else if (command == "history")
         {
@@ -126,8 +120,15 @@ void Environment::start() {
             BaseCommand* historyc = new HistoryCommand("", commandsHistory);
             historyc->execute(fs);
             addToHistory(historyc);
-
         }
+		else if (command == "verbose")
+		{
+			//verbose command
+			BaseCommand* verboaeC = new VerboseCommand(args);
+			verboaeC->execute(fs);
+			addToHistory(verboaeC);
+		}
+
         else
         {
             //Error command
@@ -139,40 +140,6 @@ void Environment::start() {
     }
 
 }
- /*
-    string input;
-	map<string, int> commandsMap;
-
-    cout << "Hello:) ";
-
-    while ( input != "exit") {
-        cout << ">";
-		cin >> input;
-
-		if (input == "mkdir") {
-			BaseCommand* mkdir = new MkdirCommand("name1/name2/name3");
-			mkdir->execute(fs);
-			addToHistory(mkdir);
-		}
-		else if (input == "history") {
-			BaseCommand* history = new HistoryCommand("", commandsHistory);
-			history->execute(fs);
-			addToHistory(history);
-		}
-		else if (input == "pwd") {
-			BaseCommand* pwd = new PwdCommand("");
-			pwd->execute(fs);
-			addToHistory(pwd);
-		}
-		else if (input == "cd") {
-			BaseCommand* cd = new CdCommand("name1");
-			cd->execute(fs);
-			addToHistory(cd);
-		}
-
-    }
-}
- */
 
 FileSystem& Environment::getFileSystem(){
 	
@@ -185,22 +152,4 @@ void Environment::addToHistory(BaseCommand *command) {
 
 const vector<BaseCommand *> &Environment::getHistory() const {
     return commandsHistory;
-}
-
-void printFS(Directory dir) {	
-	vector<BaseFile*> v = dir.getChildren();
-
-	cout << dir.getName() << endl;
-	for (vector<BaseFile*>::iterator it = v.begin(); it != v.end(); ++it) {
-		cout << (*it)->getName() << ", ";
-	}
-	cout << endl;
-	
-	for (vector<BaseFile*>::iterator it = v.begin(); it != v.end(); ++it) {
-		if (!(*it)->isFile()) {
-			printFS( *( (Directory*)(*it) ) );
-		}
-	}
-
-
 }
