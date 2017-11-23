@@ -11,15 +11,6 @@
 
 using namespace std;
 
-/*
-class CpCommand : public BaseCommand {
-private:
-public:
-    CpCommand(string args);
-    void execute(FileSystem & fs);
-    string toString();
-};*/
-
 CpCommand::CpCommand(string args) : BaseCommand(args) {
 
 }

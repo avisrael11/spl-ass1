@@ -29,8 +29,9 @@ void RmCommand::execute(FileSystem &fs) {
 	}
 	else {
 		((Directory*)toRemove)->getParent()->removeFile(toRemove);
+		((Directory*)toRemove)->deleteDir();
 	}
-	
+	delete toRemove;
 }
 
 string RmCommand::toString() {
