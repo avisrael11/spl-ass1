@@ -1,6 +1,8 @@
 
 #include "../include/NevigationHelper.h"
 
+#include <algorithm>
+
 
 using namespace std;
 
