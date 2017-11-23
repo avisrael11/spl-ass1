@@ -1,26 +1,34 @@
 //
-// Created by Aviv Israel on 15/11/2017.
+// exec – Executes a command from history.
+// Syntax: exec <command-number>
 //
 
 #include "../include/Commands.h"
+#include "iostream"
 
 using namespace std;
-/*
-class ExecCommand : public BaseCommand {
-private:
-    const vector<BaseCommand *> & history;
-public:
-    ExecCommand(string args, const vector<BaseCommand *> & history);
-    void execute(FileSystem & fs);
-    string toString();
-};*/
+
 
 ExecCommand::ExecCommand(string args, const vector<BaseCommand *> &history) : BaseCommand(args), history(history)  {
 
 }
 
 void ExecCommand::execute(FileSystem &fs) {
+    string str              = getArgs();
 
+    if (str.length()==0) {
+        cout << "Command not found" << endl;
+        return;
+    }
+    else
+    {
+        int size= stoi(str);
+        if (size <= history.size()) {
+            history[size]->execute(fs);
+        }
+        else
+            cout << "Command not found" << endl;
+    }
 }
 
 string ExecCommand::toString() {

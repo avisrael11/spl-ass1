@@ -128,6 +128,14 @@ void Environment::start() {
             addToHistory(historyc);
 
         }
+        else if (command == "exec")
+        {
+            //history command
+            BaseCommand* historyc = new ExecCommand(args, commandsHistory);
+            historyc->execute(fs);
+            addToHistory(historyc);
+
+        }
         else
         {
             //Error command
