@@ -12,7 +12,7 @@ using namespace std;
 
 void printFS(Directory dir);
 
-Environment::Environment() {
+Environment::Environment(): commandsHistory(), fs(){
 	
 }
 
