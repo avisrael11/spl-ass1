@@ -21,11 +21,17 @@ BaseFile* NevigationHelper::getBaseFileFromPath(FileSystem& fs, string path) {
 		dir = &(fs.getRootDirectory());
 	}
 	else while (i < vectorSize && (*pathVector)[i] == "..") {
-		dir = dir->getParent();
-		i++;
+			if(dir != nullptr){
+				dir = dir->getParent();
+				i++;
+			}
+			else{
+				delete pathVector;
+				return nullptr;
+			}
 	}
 
-	BaseFile* tempFile = nullptr;
+	BaseFile* tempFile = dir;
 
 	while(i < vectorSize) {
 		tempFile = dir->getFileByName((*pathVector)[i]);
@@ -129,6 +135,10 @@ string NevigationHelper::getAbsolutePath(FileSystem& fs, string path) {
 
 bool NevigationHelper::isPathLegit(FileSystem& fs, string path) {
 	string absPath				= getAbsolutePath(fs, path);
+	if(absPath == "/"){
+		return true;
+	}
+
 	vector<string>* pathVector  = splitPath(absPath);
 	BaseFile* bf				= &(fs.getRootDirectory());
 	bool ret					= true;

@@ -32,7 +32,7 @@ void Environment::start() {
         cout << fs.getWorkingDirectory().getAbsolutePath() << ">";
         getline(cin, fullLine, '\n');
 
-        if (vh.printCommands()) {
+        if (vh.printCommands() && fullLine != "exit") {
             cout << fullLine << endl;
         }
 

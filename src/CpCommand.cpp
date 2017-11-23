@@ -24,6 +24,15 @@ void CpCommand::execute(FileSystem &fs) {
     BaseFile* bfDest	= nh.getBaseFileFromPath(fs, dest);
 
     if (bfSource != nullptr && bfDest != nullptr && !bfDest->isFile()) {
+        string pathFileExistDest = ((Directory*)bfDest)->getAbsolutePath();
+        if(pathFileExistDest != "/"){
+            pathFileExistDest += '/';
+        }
+        pathFileExistDest += bfSource->getName();
+        if(nh.getBaseFileFromPath(fs, pathFileExistDest) != nullptr){
+            return;
+        }
+
         BaseFile* newBaseFile;
         if (bfSource->isFile()) {
             newBaseFile = new File(*((File*)bfSource));
