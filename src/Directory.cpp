@@ -9,26 +9,36 @@ Directory::Directory(string name, Directory *parent) : BaseFile(name), parent(pa
 	if (parent != nullptr) {
 		depth = parent->getDepth() + 1;
 	}
-
-	cout << "directory constractor: " << getName() << endl;
 }
 
 Directory::~Directory() {
-	if (verbose == 1) {
-		cout << "directory destractor: " << getName() << endl;
+	if (verbose == 1 || verbose == 3) {
+		cout << "Directory::~Directory()" << getName() << endl;
 	}
 }
 
 Directory::Directory(const Directory &other): BaseFile(other.getName()), parent(other.getParent()) {
+	if (verbose == 1 || verbose == 3) {
+		cout << "Directory::Directory(const Directory &other)" << getName() << endl;
+	}
+
 	copyChildren(other);
 }
 Directory::Directory(Directory &&other) : BaseFile(other.getName()), parent(other.getParent()) {
+	if (verbose == 1 || verbose == 3) {
+		cout << "Directory::Directory(Directory &&other)" << getName() << endl;
+	}
+
 	copyChildren(other);
 
 	other.deleteDir();
 }
 
 Directory& Directory::operator=(const Directory &other) {
+	if (verbose == 1 || verbose == 3) {
+		cout << "Directory& Directory::operator=(const Directory &other)" << getName() << endl;
+	}
+
 	if (this != &other) {
 		if (parent != nullptr) {
 			parent->removeFile(this);
@@ -45,6 +55,10 @@ Directory& Directory::operator=(const Directory &other) {
 }
 
 Directory& Directory::operator=(Directory &&other) {
+	if (verbose == 1 || verbose == 3) {
+		cout << "Directory& Directory::operator=(Directory &&other)" << endl;
+	}
+
 	if (this != &other) {
 		if (parent != nullptr) {
 			parent->removeFile(this);

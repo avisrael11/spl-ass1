@@ -3,25 +3,20 @@
 //
 
 #include "../include/Commands.h"
+#include "../include/VerboseHandler.h"
 
 using namespace std;
-/*
-class VerboseCommand : public BaseCommand {
-private:
-public:
-    VerboseCommand(string args);
-    void execute(FileSystem & fs);
-    string toString();
-};*/
+
 
 VerboseCommand::VerboseCommand(string args) : BaseCommand(args) {
-
 }
 
 void VerboseCommand::execute(FileSystem &fs) {
+	VerboseHandler vh;
+	vh.setVerbose(stoul(getArgs()));
 
 }
 
 string VerboseCommand::toString() {
-    return std::string();
+    return "verbose";
 }
