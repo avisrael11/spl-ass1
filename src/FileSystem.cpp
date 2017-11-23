@@ -1,8 +1,7 @@
 //
-// Created by Aviv Israel on 14/11/2017.
+// FileSystem – Holds the root directory and the working directory.
 //
 #include "../include/FileSystem.h"
-#include "../include/Files.h"
 
 using namespace std;
 
@@ -19,7 +18,6 @@ FileSystem::FileSystem(const FileSystem& other){
 }
 
 FileSystem::FileSystem(FileSystem&& other): rootDirectory(other.rootDirectory), workingDirectory(other.workingDirectory){
-	
 	other.workingDirectory	= nullptr;
 	other.rootDirectory		= nullptr;
 }

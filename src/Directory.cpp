@@ -1,3 +1,7 @@
+//
+//Inherits from BaseFile. This class represents a single folder in the system. Each
+//directory has a name and a parent and contains a list of files and directories.
+//
 
 #include "../include/Files.h"
 #include <algorithm>

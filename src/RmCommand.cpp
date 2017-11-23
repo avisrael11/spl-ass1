@@ -1,10 +1,10 @@
 //
-// Created by Aviv Israel on 15/11/2017.
+// rm – Remove (delete) a file or a directory. If the argument is a directory remove it
+//recursively.
+//	Syntax: rm <path>
 //
 #include "../include/Commands.h"
 #include "../include/NevigationHelper.h"
-#include "../include/Files.h"
-
 #include <iostream>
 
 using namespace std;

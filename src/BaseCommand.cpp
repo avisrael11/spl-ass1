@@ -1,5 +1,5 @@
 //
-// Created by Aviv Israel on 15/11/2017.
+// BaseCommand – This is an abstract class for the different command classes
 //
 #include "../include/Commands.h"
 

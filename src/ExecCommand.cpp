@@ -20,8 +20,7 @@ void ExecCommand::execute(FileSystem &fs) {
         cout << "Command not found" << endl;
         return;
     }
-    else
-    {
+    else {
         int size= stoi(str);
         if (size <= history.size()) {
             history[size]->execute(fs);
@@ -32,5 +31,5 @@ void ExecCommand::execute(FileSystem &fs) {
 }
 
 string ExecCommand::toString() {
-    return std::string();
+    return "exec";
 }

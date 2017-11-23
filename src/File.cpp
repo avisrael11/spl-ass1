@@ -1,25 +1,10 @@
 //
-// Created by Aviv Israel on 14/11/2017.
+// File – Inherits from BaseFile. This class represents a single file in the system. Each file has a
+//  name, a size and a parent (the containing directory).
 //
 #include "../include/Files.h"
 
 using namespace std;
-/*
-class File : public BaseFile {
-private:
-    int size;
-
-public:
-    File(string name, int size); // Constructor
-    int getSize(); // Return the size of the file
-    ~ File(); 	//Destructor
-	File(const File &other);// Copy Constructor
-	File(File &&other);// Move Constructor
-	File& operator=(const File &other);// Copy Assignment
-	File& operator=(File &&other);// Move Assignment
-
-};
-*/
 
 File::File(string name, int size): BaseFile(name), size (size) {
 

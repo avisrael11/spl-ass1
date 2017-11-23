@@ -1,10 +1,9 @@
 //
-// Created by Aviv Israel on 15/11/2017.
+// mkdir – Create a new directory. If needed, create intermediate directories in the path.
+// Syntax: mkdir <path>
 //
 #include "../include/Commands.h"
 #include "../include/NevigationHelper.h"
-
-#include <string>
 #include <iostream>
 
 using namespace std;
@@ -19,8 +18,7 @@ void MkdirCommand::execute(FileSystem &fs) {
 	string str = getArgs();
 	Directory* wd = &(fs.getRootDirectory());
 	bool dirCreated = false;
-	Errors err = OK;
-
+	//Errors err = OK;
 
 	string path = nh.getAbsolutePath(fs, str);
 	vector<string>* pathVector = nh.splitPath(path);
@@ -34,7 +32,7 @@ void MkdirCommand::execute(FileSystem &fs) {
 			break;
 		}
 		else if (bf->isFile()) {
-			err = FileExists;
+			//err = FileExists;
 			break;
 		}
 		wd = (Directory*)bf;
@@ -50,7 +48,7 @@ string MkdirCommand::toString() {
 	return "mkdir";
 }
 
-
+/*
 MkdirCommand::Errors MkdirCommand::legalName(Directory &dir, string& dirName) {
 	vector<BaseFile*> v = dir.getChildren();
 	Errors ret = OK;
@@ -76,6 +74,7 @@ string MkdirCommand::extractName(string str) {
 	}
 	return str;
 }
+*/
 
 void MkdirCommand::createNewFolders(vector<string>& pathVector, vector<string>::iterator& it, Directory* wd) {
 	for (; it != pathVector.end(); ++it) {

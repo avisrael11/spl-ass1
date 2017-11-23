@@ -10,7 +10,6 @@
 
 using namespace std;
 
-
 LsCommand::LsCommand(string args) : BaseCommand(args) {
 
 }
@@ -34,9 +33,8 @@ void LsCommand::execute(FileSystem &fs) {
     if (str.length() == 0)//if don't get <path> as argument => <path>==" "
     {
         str = fs.getWorkingDirectory().getAbsolutePath();
-
-    } else
-    {
+    }
+    else {
         if(!nh.isPathLegit(fs, str)) {
             cout << "The system cannot find the path specified" << endl;
             return;

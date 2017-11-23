@@ -7,7 +7,6 @@
 
 #include "../include/Commands.h"
 #include "../include/NevigationHelper.h"
-
 #include <iostream>
 
 using namespace std;

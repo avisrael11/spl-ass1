@@ -22,7 +22,6 @@ void RenameCommand::execute(FileSystem &fs) {
     NevigationHelper nh;
     BaseFile* bfOldName	= nh.getBaseFileFromPath(fs, oldName);
 
-
     if (bfOldName != nullptr) // if oldName == file or directory exist
     {
         if (!bfOldName->isFile() && fs.getWorkingDirectory().getAbsolutePath() == (*(Directory*)bfOldName).getAbsolutePath())  //if directory and equal working Directory

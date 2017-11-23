@@ -1,19 +1,13 @@
 //
-// Created by Aviv Israel on 15/11/2017.
+// ErrorCommand – This is a special command class that represents an unknown command, that is,
+// a command that is not listed in the commands list below. It also inherits from BaseCommand.
+// When executed it prints: "<the-input-command>: Unknown command”
 //
 
 #include "../include/Commands.h"
 #include <iostream>
 
 using namespace std;
-/*
-class ErrorCommand : public BaseCommand {
-private:
-public:
-    ErrorCommand(string args);
-    void execute(FileSystem & fs);
-    string toString();
-};*/
 
 ErrorCommand::ErrorCommand(string args) : BaseCommand(args) {
 

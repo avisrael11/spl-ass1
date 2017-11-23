@@ -1,28 +1,7 @@
 //
-// Created by Aviv Israel on 14/11/2017.
+// BaseFile – This is an abstract class for File and Directory.
 //
 #include "../include/Files.h"
-/*
-class BaseFile {
-private:
-    string name;
-
-public:
-    BaseFile(string name);
-
-    virtual ~ BaseFile(); 	//Destructor
-    BaseFile(const BaseFile &other);// Copy Constructor
-    BaseFile(BaseFile &&other);// Move Constructor
-    BaseFile& operator=(const BaseFile &other);// Copy Assignment
-    BaseFile& operator=(BaseFile &&other);// Move Assignment
-
-    string getName() const;
-    void setName(string newName);
-    virtual int getSize() = 0;
-
-    virtual bool isFile() = 0;
-};*/
-
 
 using namespace std;
 
