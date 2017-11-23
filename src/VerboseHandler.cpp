@@ -6,6 +6,8 @@
 
 #include <iostream>
 
+using namespace std;
+
 VerboseHandler::VerboseHandler() : PRINTCOMMANDS(2), PRINTCOMMANDSANDFIVE(3), PRINTFIVE(1), MAXVAL(3){}
 
 bool VerboseHandler::printCommands() {

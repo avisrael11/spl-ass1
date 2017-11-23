@@ -3,7 +3,7 @@
 
 #include "../include/GlobalVariables.h"
 
-using namespace std;
+
 
 class VerboseHandler
 {
