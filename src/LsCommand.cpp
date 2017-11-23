@@ -10,7 +10,7 @@
 
 using namespace std;
 
-LsCommand::LsCommand(string args) : BaseCommand(args) {
+LsCommand::LsCommand(string args) : BaseCommand(args), isLss(false) {
 
 }
 
