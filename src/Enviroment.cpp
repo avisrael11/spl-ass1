@@ -3,7 +3,8 @@
 // duplicates, ErrorCommands and the HistoryCommands
 //
 #include "../include/Environment.h"
-#include <map>
+#include "../include/VerboseHandler.h"
+
 #include <iostream>
 
 using namespace std;
@@ -23,12 +24,17 @@ Environment::~Environment(){
 void Environment::start() {
 
     string command, args, fullLine;
-
+    VerboseHandler vh;
 
     while (true){
 
         cout << fs.getWorkingDirectory().getAbsolutePath() << ">";
         getline(cin, fullLine, '\n');
+
+        if (vh.printCommands()) {
+            cout << fullLine << endl;
+        }
+
         command = fullLine.substr(0, fullLine.find(' '));
         if (command.length()==fullLine.length())
             args = fullLine.substr(command.length(), fullLine.length());
@@ -116,6 +122,13 @@ void Environment::start() {
             BaseCommand* historyc = new ExecCommand(args, commandsHistory);
             historyc->execute(fs);
             addToHistory(historyc);
+        }
+        else if (command == "verbose")
+        {
+            //verbose command
+            BaseCommand* verboaeC = new VerboseCommand(args);
+            verboaeC->execute(fs);
+            addToHistory(verboaeC);
         }
         else
         {
