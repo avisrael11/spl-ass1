@@ -103,19 +103,19 @@ string NevigationHelper::getAbsolutePath(FileSystem& fs, string path) {
 
 	vector<string>* pathVector = splitPath(path);
 
-	Directory dir = fs.getWorkingDirectory();
+	Directory* dir = &(fs.getWorkingDirectory());
 	size_t i = 0;
 
 	while (i < pathVector->size() && (*pathVector)[i] == "..") {
-		if (dir.getParent() == nullptr) {
+		if (dir->getParent() == nullptr) {
 			delete pathVector;
 			return "Ilegal Path";
 		}
-		dir = (*(dir.getParent()));
+		dir = dir->getParent();
 		i++;
 	}
 
-	absPath = dir.getAbsolutePath();
+	absPath = dir->getAbsolutePath();
 	string temp = path.erase(0, 3 * i);
 	if (temp.size() > 0) {
 		if (absPath != "/"){
