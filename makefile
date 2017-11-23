@@ -9,7 +9,7 @@ all: fs
 
 # Tool invocations
 # Executable "fs" depends on the files below
-fs: bin/BaseCommand.o bin/BaseFile.o bin/CdCommand.o bin/CpCommand.o bin/Directory.o bin/Enviroment.o bin/ErrorCommand.o bin/ExecCommand.o bin/File.o bin/FileSystem.o bin/HistoryCommand.o LsCommand.o bin/main.o bin/MkdirCommand.o bin/MkfileCommand.o bin/MvCommand.o bin/NevigationHelper.o bin/PwdCommand.o bin/RenameCommand.o bin/RmCommand.o bin/VerboseCommand.o
+fs: bin/BaseCommand.o bin/BaseFile.o bin/CdCommand.o bin/CpCommand.o bin/Directory.o bin/Enviroment.o bin/ErrorCommand.o bin/ExecCommand.o bin/File.o bin/FileSystem.o bin/HistoryCommand.o LsCommand.o bin/main.o bin/MkdirCommand.o bin/MkfileCommand.o bin/MvCommand.o bin/NevigationHelper.o bin/PwdCommand.o bin/RenameCommand.o bin/RmCommand.o bin/VerboseCommand.o bin/VerboseHandler.o
 	@echo 'Building target: fs'
 	@echo 'Invoking: C++ Linker'
 	$(CC) -o bin/fs bin/BaseCommand.o bin/BaseFile.o bin/CdCommand.o bin/CpCommand.o bin/Directory.o bin/Enviroment.o bin/ErrorCommand.o bin/ExecCommand.o bin/File.o bin/FileSystem.o bin/HistoryCommand.o LsCommand.o bin/main.o bin/MkdirCommand.o bin/MkfileCommand.o bin/MvCommand.o bin/NevigationHelper.o bin/PwdCommand.o bin/RenameCommand.o bin/RmCommand.o bin/VerboseCommand.o $(LFLAGS)
@@ -99,6 +99,10 @@ bin/RmCommand.o: src/RmCommand.cpp
 # Depends on the source and header files - VerboseCommand
 bin/VerboseCommand.o: src/VerboseCommand.cpp
 	$(CC) $(CFLAGS) -c -Iinclude -o bin/VerboseCommand.o src/VerboseCommand.cpp
+
+# Depends on the source and header files - VerboseHandler
+bin/VerboseHandler.o: src/VerboseHandler.cpp
+	$(CC) $(CFLAGS) -c -Iinclude -o bin/VerboseHandler.o src/VerboseHandler.cpp
 
 #Clean the build directory
 clean:
