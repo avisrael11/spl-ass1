@@ -10,6 +10,8 @@ File::File(string name, int size): BaseFile(name), size (size) {
 
 }
 
+File::~File(){}
+
 int File::getSize() {
     return size;
 }

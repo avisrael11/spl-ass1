@@ -6,10 +6,9 @@
 using namespace std;
 
 BaseFile::BaseFile(string name) : name(name){
-
-
 }
 
+BaseFile::~BaseFile(){}
 
 string BaseFile::getName() const {
     return name;

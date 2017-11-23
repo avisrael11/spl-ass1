@@ -15,6 +15,8 @@ private:
 
 public:
 	BaseFile(string name);
+	virtual ~BaseFile();
+
 	string getName() const;
 	void setName(string newName);
 	virtual int getSize() = 0;
@@ -32,6 +34,8 @@ private:
 
 public:
     File(string name, int size); // Constructor
+    virtual ~File();
+
     int getSize(); // Return the size of the file
 
 	virtual bool isFile();
@@ -53,7 +57,7 @@ public:
 	Directory(Directory &&other);// Move Constructor
 	Directory& operator=(const Directory &other);// Copy Assignment
 	Directory& operator=(Directory &&other);// Move Assignment
-	~Directory();
+	virtual ~Directory();
 
 	void deleteDir();
     Directory *getParent() const; // Return a pointer to the parent of this directory
