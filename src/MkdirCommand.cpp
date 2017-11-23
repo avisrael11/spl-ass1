@@ -36,7 +36,7 @@ void MkdirCommand::execute(FileSystem &fs) {
 		wd = (Directory*)bf;
 	}
 	if (!dirCreated) {
-		cout << "Directory Already Exists" << endl;
+		cout << "The directory already exists" << endl;
 	}
 
 	delete pathVector;

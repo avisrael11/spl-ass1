@@ -69,7 +69,7 @@ Directory& Directory::operator=(Directory &&other) {
 		}
 		for (vector<BaseFile*>::iterator it = children.begin(); it != children.end(); ++it) {
 			removeFile(*it);
-		}
+	}
 
 		copyChildren(other);
 		parent = other.getParent();
@@ -108,6 +108,9 @@ bool Directory::isFile() {
 
 void Directory::addFile(BaseFile *file) {
 	if (file != NULL) {
+		if(!file->isFile()){
+			((Directory*)file)->setParent(this);
+		}
 		children.push_back(file);
 	}
 }
