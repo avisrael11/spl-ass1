@@ -13,6 +13,7 @@ private:
 
 public:
     BaseCommand(string args);
+	virtual ~BaseCommand();
     string getArgs();
     virtual void execute(FileSystem & fs) = 0;
     virtual string toString() = 0;
@@ -22,6 +23,7 @@ class PwdCommand : public BaseCommand {
 private:
 public:
     PwdCommand(string args);
+	virtual ~PwdCommand();
     void execute(FileSystem & fs); // Every derived class should implement this function according to the document (pdf)
     virtual string toString();
 };
@@ -30,6 +32,7 @@ class CdCommand : public BaseCommand {
 private:
 public:
     CdCommand(string args);
+	virtual ~CdCommand();
     void execute(FileSystem & fs);
     string toString();
 };
@@ -39,26 +42,17 @@ private:
 	bool isLss;
 public:
     LsCommand(string args);
+	virtual ~LsCommand();
     void execute(FileSystem & fs);
     string toString();
 };
 
 class MkdirCommand : public BaseCommand {
 private:
-	typedef enum
-	{
-		OK,
-		DirectoryAlreadyExists,
-		FileExists
-	}Errors;
-
-	array<std::string, 3> errorArray = { "OK", "The directory already exists", "Ther is a file with the same name" };
-	Errors legalName(Directory &dir, string& dirName);
-	string extractName(string str);
 	void createNewFolders(vector<string>& pathVector, vector<string>::iterator& it, Directory* wd);
-
 public:
     MkdirCommand(string args);
+	virtual ~MkdirCommand();
     void execute(FileSystem & fs);
     string toString();
 };
@@ -68,6 +62,7 @@ private:
 	void createNewFile(vector<string>& pathVector, vector<string>::iterator& it, Directory* wd, int size);
 public:
     MkfileCommand(string args);
+	virtual ~MkfileCommand();
     void execute(FileSystem & fs);
     string toString();
 };
@@ -76,6 +71,7 @@ class CpCommand : public BaseCommand {
 private:
 public:
     CpCommand(string args);
+	virtual ~CpCommand();
     void execute(FileSystem & fs);
     string toString();
 };
@@ -84,6 +80,7 @@ class MvCommand : public BaseCommand {
 private:
 public:
     MvCommand(string args);
+	virtual ~MvCommand();
     void execute(FileSystem & fs);
     string toString();
 };
@@ -92,6 +89,7 @@ class RenameCommand : public BaseCommand {
 private:
 public:
     RenameCommand(string args);
+	virtual ~RenameCommand();
     void execute(FileSystem & fs);
     string toString();
 };
@@ -100,6 +98,7 @@ class RmCommand : public BaseCommand {
 private:
 public:
     RmCommand(string args);
+	virtual ~RmCommand();
     void execute(FileSystem & fs);
     string toString();
 };
@@ -109,6 +108,7 @@ private:
     const vector<BaseCommand *> & history;
 public:
     HistoryCommand(string args, const vector<BaseCommand *> & history);
+	virtual ~HistoryCommand();
     void execute(FileSystem & fs);
     string toString();
 };
@@ -118,6 +118,7 @@ class VerboseCommand : public BaseCommand {
 private:
 public:
     VerboseCommand(string args);
+	virtual ~VerboseCommand();
     void execute(FileSystem & fs);
     string toString();
 };
@@ -126,6 +127,7 @@ class ErrorCommand : public BaseCommand {
 private:
 public:
     ErrorCommand(string args);
+	virtual ~ErrorCommand();
     void execute(FileSystem & fs);
     string toString();
 };
@@ -135,6 +137,7 @@ private:
     const vector<BaseCommand *> & history;
 public:
     ExecCommand(string args, const vector<BaseCommand *> & history);
+	virtual ~ExecCommand();
     void execute(FileSystem & fs);
     string toString();
 };

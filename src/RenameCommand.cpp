@@ -37,3 +37,7 @@ void RenameCommand::execute(FileSystem &fs) {
 string RenameCommand::toString() {
     return std::string();
 }
+
+RenameCommand::~RenameCommand() {
+
+}

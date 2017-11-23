@@ -53,3 +53,7 @@ void MkfileCommand::createNewFile(vector<string>& pathVector, vector<string>::it
 string MkfileCommand::toString() {
     return "mkfile";
 }
+
+MkfileCommand::~MkfileCommand() {
+
+}

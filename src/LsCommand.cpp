@@ -62,3 +62,7 @@ void LsCommand::execute(FileSystem &fs) {
 string LsCommand::toString() {
     return "ls";
 }
+
+LsCommand::~LsCommand() {
+
+}

@@ -23,7 +23,7 @@ void MvCommand::execute(FileSystem &fs) {
 	BaseFile* bfDest	= nh.getBaseFileFromPath(fs, dest);
 
 	if (bfSource == &fs.getRootDirectory() || bfSource == fs.getRootDirectory().getParent() || bfSource == &fs.getWorkingDirectory()) {
-		cout << "Can’t move directory" << endl;
+		cout << "Canï¿½t move directory" << endl;
 		return;
 	}
 	else if (bfSource == nullptr || bfDest == nullptr || bfDest->isFile()) {
@@ -42,3 +42,8 @@ void MvCommand::execute(FileSystem &fs) {
 string MvCommand::toString(){
     return "mv";
 }
+
+MvCommand::~MvCommand() {
+
+}
+

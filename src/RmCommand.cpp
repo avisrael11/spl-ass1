@@ -38,3 +38,7 @@ string RmCommand::toString() {
     return "rm";
 }
 
+RmCommand::~RmCommand() {
+
+}
+

@@ -18,7 +18,6 @@ void MkdirCommand::execute(FileSystem &fs) {
 	string str = getArgs();
 	Directory* wd = &(fs.getRootDirectory());
 	bool dirCreated = false;
-	//Errors err = OK;
 
 	string path = nh.getAbsolutePath(fs, str);
 	vector<string>* pathVector = nh.splitPath(path);
@@ -32,7 +31,6 @@ void MkdirCommand::execute(FileSystem &fs) {
 			break;
 		}
 		else if (bf->isFile()) {
-			//err = FileExists;
 			break;
 		}
 		wd = (Directory*)bf;
@@ -48,33 +46,6 @@ string MkdirCommand::toString() {
 	return "mkdir";
 }
 
-/*
-MkdirCommand::Errors MkdirCommand::legalName(Directory &dir, string& dirName) {
-	vector<BaseFile*> v = dir.getChildren();
-	Errors ret = OK;
-
-	for (vector<BaseFile*>::iterator it = v.begin(); it != v.end(); ++it) {
-		if ((*it)->getName() == dirName) {
-			if (!((*it)->isFile()))
-				ret = DirectoryAlreadyExists;
-			else
-				ret = FileExists;
-		}
-	}
-	return ret;
-}
-
-
-string MkdirCommand::extractName(string str) {
-
-	size_t nameStart = str.find_last_of("/");
-
-	if (nameStart != string::npos) {
-		return str.substr(nameStart);
-	}
-	return str;
-}
-*/
 
 void MkdirCommand::createNewFolders(vector<string>& pathVector, vector<string>::iterator& it, Directory* wd) {
 	for (; it != pathVector.end(); ++it) {
@@ -82,4 +53,8 @@ void MkdirCommand::createNewFolders(vector<string>& pathVector, vector<string>::
 		wd->addFile(newDir);
 		wd = newDir;
 	}
+}
+
+MkdirCommand::~MkdirCommand() {
+
 }

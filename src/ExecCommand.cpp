@@ -33,3 +33,7 @@ void ExecCommand::execute(FileSystem &fs) {
 string ExecCommand::toString() {
     return "exec";
 }
+
+ExecCommand::~ExecCommand() {
+
+}

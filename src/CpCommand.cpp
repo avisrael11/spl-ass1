@@ -34,10 +34,14 @@ void CpCommand::execute(FileSystem &fs) {
         ((Directory*)bfDest)->addFile(newBaseFile);
     }
     else {
-        cout << "" << endl;/****?****/
+        cout << "No such file or directory" << endl;
     }
 }
 
 string CpCommand::toString() {
     return "cp";
+}
+
+CpCommand::~CpCommand() {
+
 }

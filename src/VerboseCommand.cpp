@@ -29,3 +29,7 @@ void VerboseCommand::execute(FileSystem &fs) {
 string VerboseCommand::toString() {
     return "verbose";
 }
+
+VerboseCommand::~VerboseCommand() {
+
+}

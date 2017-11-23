@@ -1,5 +1,5 @@
 //
-// – Print out the entire list of the executed commands sorted from the oldest to the
+// history – Print out the entire list of the executed commands sorted from the oldest to the
 // newest, excluding current history command.
 //
 #include "../include/Commands.h"
@@ -21,4 +21,8 @@ void HistoryCommand::execute(FileSystem &fs) {
 
 string HistoryCommand::toString() {
     return "history";
+}
+
+HistoryCommand::~HistoryCommand() {
+
 }

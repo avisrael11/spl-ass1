@@ -12,3 +12,7 @@ BaseCommand::BaseCommand(string args): args(args) {
 string BaseCommand::getArgs() {
     return args;
 }
+
+BaseCommand::~BaseCommand() {
+
+}
