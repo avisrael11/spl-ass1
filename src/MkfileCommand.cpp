@@ -46,10 +46,9 @@ void MkfileCommand::execute(FileSystem &fs) {
 }
 
 void MkfileCommand::createNewFile(vector<string>& pathVector, vector<string>::iterator& it, Directory* wd, int size) {
-    for (; it != pathVector.end(); ++it) {
         File* newfile = new File(*it, size);
         wd->addFile(newfile);
-    }
+
 }
 
 string MkfileCommand::toString() {
