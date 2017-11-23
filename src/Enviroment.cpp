@@ -1,15 +1,9 @@
 //
-// Created by Aviv Israel on 13/11/2017.
-// v1.0
+// Environment - Holds the file-system and the entire history of executed commands including
+// duplicates, ErrorCommands and the HistoryCommands
+//
 #include "../include/Environment.h"
-#include "../include/Files.h"
-#include "../include/Commands.h"
-#include "../include/FileSystem.h"
-
-#include <string>
-#include <vector>
 #include <map>
-
 #include <iostream>
 
 using namespace std;
@@ -25,8 +19,6 @@ Environment::~Environment(){
 		delete *it;
 	}
 }
-
-
 
 void Environment::start() {
 
@@ -54,8 +46,6 @@ void Environment::start() {
             BaseCommand* pwdc = new PwdCommand(args);
             pwdc->execute(fs);
             addToHistory(pwdc);
-            //cout << "pwd commad" << endl;
-
         }
         else if (command == "cd")
         {
@@ -63,7 +53,6 @@ void Environment::start() {
             BaseCommand* cdc = new CdCommand(args);
             cdc->execute(fs);
             addToHistory(cdc);
-            //cout << "cd commad" << endl;
         }
         else if (command == "ls")
         {
@@ -71,7 +60,6 @@ void Environment::start() {
             BaseCommand* lsc = new LsCommand(args);
             lsc->execute(fs);
             addToHistory(lsc);
-
         }
         else if (command == "mkdir")
         {
@@ -79,7 +67,6 @@ void Environment::start() {
             BaseCommand* mkdirc = new MkdirCommand(args);
             mkdirc->execute(fs);
             addToHistory(mkdirc);
-
         }
         else if (command == "mkfile")
         {
@@ -87,7 +74,6 @@ void Environment::start() {
             BaseCommand* mkfilec = new MkfileCommand(args);
             mkfilec->execute(fs);
             addToHistory(mkfilec);
-
         }
         else if (command == "cp")
         {
@@ -95,7 +81,6 @@ void Environment::start() {
             BaseCommand* cpc = new CpCommand(args);
             cpc->execute(fs);
             addToHistory(cpc);
-
         }
         else if (command == "mv")
         {
@@ -103,7 +88,6 @@ void Environment::start() {
             BaseCommand* mvc = new MvCommand(args);
             mvc->execute(fs);
             addToHistory(mvc);
-
         }
         else if (command == "rename")
         {
@@ -118,7 +102,6 @@ void Environment::start() {
             BaseCommand* rmc = new RmCommand(args);
             rmc->execute(fs);
             addToHistory(rmc);
-
         }
         else if (command == "history")
         {
@@ -126,7 +109,6 @@ void Environment::start() {
             BaseCommand* historyc = new HistoryCommand("", commandsHistory);
             historyc->execute(fs);
             addToHistory(historyc);
-
         }
         else if (command == "exec")
         {
@@ -134,7 +116,6 @@ void Environment::start() {
             BaseCommand* historyc = new ExecCommand(args, commandsHistory);
             historyc->execute(fs);
             addToHistory(historyc);
-
         }
         else
         {
@@ -143,44 +124,8 @@ void Environment::start() {
             errorc->execute(fs);
             addToHistory(errorc);
         }
-
-    }
-
-}
- /*
-    string input;
-	map<string, int> commandsMap;
-
-    cout << "Hello:) ";
-
-    while ( input != "exit") {
-        cout << ">";
-		cin >> input;
-
-		if (input == "mkdir") {
-			BaseCommand* mkdir = new MkdirCommand("name1/name2/name3");
-			mkdir->execute(fs);
-			addToHistory(mkdir);
-		}
-		else if (input == "history") {
-			BaseCommand* history = new HistoryCommand("", commandsHistory);
-			history->execute(fs);
-			addToHistory(history);
-		}
-		else if (input == "pwd") {
-			BaseCommand* pwd = new PwdCommand("");
-			pwd->execute(fs);
-			addToHistory(pwd);
-		}
-		else if (input == "cd") {
-			BaseCommand* cd = new CdCommand("name1");
-			cd->execute(fs);
-			addToHistory(cd);
-		}
-
     }
 }
- */
 
 FileSystem& Environment::getFileSystem(){
 	
@@ -199,14 +144,14 @@ void printFS(Directory dir) {
 	vector<BaseFile*> v = dir.getChildren();
 
 	cout << dir.getName() << endl;
-	for (vector<BaseFile*>::iterator it = v.begin(); it != v.end(); ++it) {
-		cout << (*it)->getName() << ", ";
+	for (auto &it : v) {
+		cout << it->getName() << ", ";
 	}
 	cout << endl;
 	
-	for (vector<BaseFile*>::iterator it = v.begin(); it != v.end(); ++it) {
-		if (!(*it)->isFile()) {
-			printFS( *( (Directory*)(*it) ) );
+	for (auto &it : v) {
+		if (!it->isFile()) {
+			printFS( *( (Directory*) it) );
 		}
 	}
 
