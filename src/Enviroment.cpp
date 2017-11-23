@@ -2,6 +2,7 @@
 // Environment - Holds the file-system and the entire history of executed commands including
 // duplicates, ErrorCommands and the HistoryCommands
 //
+//
 #include "../include/Environment.h"
 #include "../include/VerboseHandler.h"
 
