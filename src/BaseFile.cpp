@@ -40,9 +40,9 @@ void BaseFile::setName(string newName) {
     name = newName;
 }
 
-bool static BaseFile::compareByName(BaseFile *lhs, BaseFile *rhs) { return lhs->getName() < rhs->getName(); }
+bool BaseFile::compareByName(BaseFile *lhs, BaseFile *rhs) { return lhs->getName() < rhs->getName(); }
 
-bool static BaseFile::compareBySize(BaseFile *lhs, BaseFile *rhs) { return lhs->getSize() < rhs->getSize(); }
+bool BaseFile::compareBySize(BaseFile *lhs, BaseFile *rhs) { return lhs->getSize() < rhs->getSize(); }
 
 
 

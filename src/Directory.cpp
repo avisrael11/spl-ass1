@@ -66,12 +66,8 @@ void Directory::deleteDir() {
 	for (vector<BaseFile*>::iterator it = children.begin(); it != children.end(); ++it) {
 		if (!(*it)->isFile()) {
 			((Directory*)(*it))->deleteDir();
-			delete (*it);
 		}
-	}
-	if (parent != nullptr) {
-		parent->removeFile(this);
-		parent = nullptr;
+		delete *it;
 	}
 }
 

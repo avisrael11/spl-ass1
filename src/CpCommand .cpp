@@ -27,7 +27,7 @@ CpCommand::CpCommand(string args) : BaseCommand(args) {
 void CpCommand::execute(FileSystem &fs) {
 	string arg		= getArgs();
 	string source	= arg.substr(0, arg.find(' '));
-	string dest		= arg.substr(source.length(), arg.length());
+	string dest		= arg.substr(source.length() + 1, arg.length());
 
 	NevigationHelper nh;
 	BaseFile* bfSource	= nh.getBaseFileFromPath(fs, source);
@@ -44,7 +44,7 @@ void CpCommand::execute(FileSystem &fs) {
 		((Directory*)bfDest)->addFile(newBaseFile);
 	}
 	else {
-		cout << "No such file or directory" << endl;
+		cout << "" << endl;
 	}
 }
 
