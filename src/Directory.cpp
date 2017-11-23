@@ -179,7 +179,6 @@ BaseFile* Directory::getFileByName(string fileName) {
 	}
 	return nullptr;
 }
-<<<<<<< HEAD
 
 void Directory::copyChildren(const Directory& other) {
 	vector<BaseFile*> ch = other.children;
