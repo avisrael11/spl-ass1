@@ -33,3 +33,7 @@ string VerboseCommand::toString() {
 VerboseCommand::~VerboseCommand() {
 
 }
+
+BaseCommand* VerboseCommand::clone(){
+	return new VerboseCommand(getArgs());
+}

@@ -47,3 +47,7 @@ MvCommand::~MvCommand() {
 
 }
 
+
+BaseCommand* MvCommand::clone(){
+	return new MvCommand(getArgs());
+}

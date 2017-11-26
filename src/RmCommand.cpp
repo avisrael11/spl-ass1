@@ -45,3 +45,6 @@ RmCommand::~RmCommand() {
 
 }
 
+BaseCommand* RmCommand::clone(){
+	return new RmCommand(getArgs());
+}

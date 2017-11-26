@@ -25,3 +25,7 @@ string ErrorCommand::toString() {
 ErrorCommand::~ErrorCommand() {
 
 }
+
+BaseCommand* ErrorCommand::clone(){
+    return new ErrorCommand(getArgs());
+}

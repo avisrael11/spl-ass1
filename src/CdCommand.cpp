@@ -34,4 +34,8 @@ CdCommand::~CdCommand() {
 
 }
 
+BaseCommand* CdCommand::clone(){
+	return new CdCommand(getArgs());
+}
+
 

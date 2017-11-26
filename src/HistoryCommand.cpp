@@ -31,3 +31,7 @@ string HistoryCommand::toString() {
 HistoryCommand::~HistoryCommand() {
 
 }
+
+BaseCommand* HistoryCommand::clone(){
+    return new HistoryCommand(getArgs(), history);
+}

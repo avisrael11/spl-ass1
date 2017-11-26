@@ -66,3 +66,7 @@ string LsCommand::toString() {
 LsCommand::~LsCommand() {
 
 }
+
+BaseCommand* LsCommand::clone(){
+    return new LsCommand(getArgs());
+}

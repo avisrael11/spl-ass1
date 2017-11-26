@@ -37,3 +37,9 @@ string ExecCommand::toString() {
 ExecCommand::~ExecCommand() {
 
 }
+
+BaseCommand* ExecCommand::clone(){
+    return new ExecCommand(getArgs(), history);
+}
+
+

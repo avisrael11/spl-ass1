@@ -22,3 +22,10 @@ string PwdCommand::toString() {
 PwdCommand::~PwdCommand() {
 
 }
+
+
+
+
+BaseCommand* PwdCommand::clone(){
+    return new PwdCommand(getArgs());
+}

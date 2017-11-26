@@ -82,16 +82,6 @@ void RenameCommand::execute(FileSystem &fs) {
         cout << "No such file or directory" << endl;
     }
 }
-/*
-string RenameCommand::toString() {
-    return std::string();
-}
-
-RenameCommand::~RenameCommand() {
-
-}
-
- */
 
 string RenameCommand::toString() {
     return "rename";
@@ -99,4 +89,8 @@ string RenameCommand::toString() {
 
 RenameCommand::~RenameCommand() {
 
+}
+
+BaseCommand* RenameCommand::clone(){
+    return new RenameCommand(getArgs());
 }

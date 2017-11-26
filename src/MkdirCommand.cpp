@@ -58,3 +58,8 @@ void MkdirCommand::createNewFolders(vector<string>& pathVector, vector<string>::
 MkdirCommand::~MkdirCommand() {
 
 }
+
+BaseCommand* MkdirCommand::clone(){
+        return new MkdirCommand(getArgs());
+}
+

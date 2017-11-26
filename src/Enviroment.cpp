@@ -10,17 +10,59 @@
 
 using namespace std;
 
-void printFS(Directory dir);
 
 Environment::Environment(): commandsHistory(), fs(){
 	
 }
 
-Environment::~Environment(){	
+Environment::~Environment(){
+    VerboseHandler vh;
+    if(vh.printRule5()){
+        cout << "Environment::~Environment()" << endl;
+    }
 	for (vector<BaseCommand*>::iterator it = commandsHistory.begin(); it != commandsHistory.end(); it++) {
 		delete *it;
 	}
 }
+
+Environment::Environment(const Environment &other): commandsHistory(), fs(other.fs){
+    VerboseHandler vh;
+    if(vh.printRule5()){
+        cout << "Environment::Environment(const Environment &other)" << endl;
+    }
+
+    copyHistory(other.getHistory());
+
+}
+
+
+Environment::Environment(Environment &&other): commandsHistory(other.commandsHistory), fs(other.fs){
+}
+
+
+Environment& Environment::operator=(const Environment &other){
+    if(this != &other){
+        for (vector<BaseCommand*>::iterator it = commandsHistory.begin(); it != commandsHistory.end(); it++) {
+            delete *it;
+        }
+        fs = other.fs;
+        copyHistory(other.getHistory());
+    }
+    return *this;
+}
+
+Environment& Environment::operator=(Environment &&other){
+    if(this != &other){
+        for (vector<BaseCommand*>::iterator it = commandsHistory.begin(); it != commandsHistory.end(); it++) {
+            delete *it;
+        }
+        fs = other.fs;
+        copyHistory(other.getHistory());
+
+    }
+    return *this;
+}
+
 
 void Environment::start() {
 
@@ -154,20 +196,18 @@ const vector<BaseCommand *> &Environment::getHistory() const {
     return commandsHistory;
 }
 
-void printFS(Directory dir) {	
-	vector<BaseFile*> v = dir.getChildren();
-
-	cout << dir.getName() << endl;
-	for (auto &it : v) {
-		cout << it->getName() << ", ";
-	}
-	cout << endl;
-	
-	for (auto &it : v) {
-		if (!it->isFile()) {
-			printFS( *( (Directory*) it) );
-		}
-	}
+void Environment::copyHistory(const vector<BaseCommand*>& otherHistory){
+    for(vector<BaseCommand*>::const_iterator it = otherHistory.begin(); it != otherHistory.end(); ++it){
+        if((*it)->toString() == "exec" ){
+            commandsHistory.push_back(new ExecCommand((*it)->getArgs(), commandsHistory));
+        }
+        else if((*it)->toString() == "history" ){
+            commandsHistory.push_back(new HistoryCommand((*it)->getArgs(), commandsHistory));
+        }
+        else{
+            commandsHistory.push_back((*it)->clone());
+        }
+    }
 
 
 }

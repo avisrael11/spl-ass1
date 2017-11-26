@@ -58,3 +58,7 @@ string MkfileCommand::toString() {
 MkfileCommand::~MkfileCommand() {
 
 }
+
+BaseCommand* MkfileCommand::clone(){
+    return new MkfileCommand(getArgs());
+}

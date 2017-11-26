@@ -54,3 +54,7 @@ string CpCommand::toString() {
 CpCommand::~CpCommand() {
 
 }
+
+BaseCommand* CpCommand::clone(){
+    return new CpCommand(getArgs());
+}
