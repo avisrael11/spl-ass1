@@ -6,7 +6,6 @@
 
 class FileSystem {
 private:
-	string defaultName;
 
     Directory* rootDirectory;
     Directory* workingDirectory;

@@ -6,20 +6,21 @@
 using namespace std;
 
 
-FileSystem::FileSystem():defaultName("/"), rootDirectory(new Directory(defaultName, nullptr)), workingDirectory(rootDirectory)  {}
+FileSystem::FileSystem(): rootDirectory(new Directory("/", nullptr)), workingDirectory(rootDirectory)  {
+
+}
 
 FileSystem:: ~FileSystem() {
 	rootDirectory->deleteDir();
-	rootDirectory 	 = nullptr;
-	workingDirectory = nullptr;
+	delete(rootDirectory);
 }
 
 
-FileSystem::FileSystem(const FileSystem& other):defaultName("/"), rootDirectory(new Directory(other.getRootDirectory())), workingDirectory((Directory*)rootDirectory->getFileByName(other.getWorkingDirectory().getName())){
+FileSystem::FileSystem(const FileSystem& other):rootDirectory(new Directory(other.getRootDirectory())), workingDirectory((Directory*)rootDirectory->getFileByName(other.getWorkingDirectory().getName())){
 
 }
 
-FileSystem::FileSystem(FileSystem&& other): defaultName("/"), rootDirectory(other.rootDirectory), workingDirectory(other.workingDirectory){
+FileSystem::FileSystem(FileSystem&& other): rootDirectory(other.rootDirectory), workingDirectory(other.workingDirectory){
 	other.workingDirectory	= nullptr;
 	other.rootDirectory		= nullptr;
 }
