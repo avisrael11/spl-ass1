@@ -9,9 +9,8 @@
 
 using namespace std;
 
-Directory::Directory(string name, Directory *parent) : BaseFile(name), parent(parent){
-	if (parent != nullptr) {
-	}
+Directory::Directory(string name, Directory *parent) : BaseFile(name), parent(parent), children(){
+
 }
 
 Directory::~Directory() {
@@ -20,14 +19,14 @@ Directory::~Directory() {
 	}
 }
 
-Directory::Directory(const Directory &other): BaseFile(other.getName()), parent(other.getParent()) {
+Directory::Directory(const Directory &other): BaseFile(other.getName()), parent(other.getParent()), children() {
 	if (verbose == 1 || verbose == 3) {
 		cout << "Directory::Directory(const Directory &other)" << getName() << endl;
 	}
 
 	copyChildren(other);
 }
-Directory::Directory(Directory &&other) : BaseFile(other.getName()), parent(other.getParent()) {
+Directory::Directory(Directory &&other) : BaseFile(other.getName()), parent(other.getParent()), children() {
 	if (verbose == 1 || verbose == 3) {
 		cout << "Directory::Directory(Directory &&other)" << getName() << endl;
 	}
@@ -186,9 +185,8 @@ BaseFile* Directory::getFileByName(string fileName) {
 }
 
 void Directory::copyChildren(const Directory& other) {
-	vector<BaseFile*> ch = other.children;
 
-	for (vector<BaseFile*>::iterator it = ch.begin(); it != ch.end(); ++it) {
+	for (vector<BaseFile*>::const_iterator it = other.children.begin(); it != other.children.end(); ++it) {
 		BaseFile* newBf;
 
 		if ((*it)->isFile()) {
