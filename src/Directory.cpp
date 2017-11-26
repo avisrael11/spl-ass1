@@ -9,7 +9,7 @@
 
 using namespace std;
 
-Directory::Directory(string name, Directory *parent) : BaseFile(name), parent(parent), children(){
+Directory::Directory(string name, Directory *parent) : BaseFile(name), children(),  parent(parent){
 
 }
 
@@ -19,14 +19,14 @@ Directory::~Directory() {
 	}
 }
 
-Directory::Directory(const Directory &other): BaseFile(other.getName()), parent(other.getParent()), children() {
+Directory::Directory(const Directory &other): BaseFile(other.getName()), children(), parent(other.getParent()) {
 	if (verbose == 1 || verbose == 3) {
 		cout << "Directory::Directory(const Directory &other)" << getName() << endl;
 	}
 
 	copyChildren(other);
 }
-Directory::Directory(Directory &&other) : BaseFile(other.getName()), parent(other.getParent()), children() {
+Directory::Directory(Directory &&other) : BaseFile(other.getName()), children(), parent(other.getParent()){
 	if (verbose == 1 || verbose == 3) {
 		cout << "Directory::Directory(Directory &&other)" << getName() << endl;
 	}
