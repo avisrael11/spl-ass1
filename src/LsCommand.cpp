@@ -43,12 +43,12 @@ void LsCommand::execute(FileSystem &fs) {
     }
 
     string path = nh.getAbsolutePath(fs, str);
-    Directory lsDir = nh.getDeepestDirectoryInPath(fs, path);//getBaseFileFromPath(FileSystem& fs, string path)
-    lsDir.sortByName();
+    Directory* lsDir = &(nh.getDeepestDirectoryInPath(fs, path));//getBaseFileFromPath(FileSystem& fs, string path)
+    lsDir->sortByName();
     if (isLss)
-        lsDir.sortBySize();
+        lsDir->sortBySize();
 
-    vector<BaseFile*> childrenVector = lsDir.getChildren();
+    vector<BaseFile*> childrenVector = lsDir->getChildren();
     for (auto &it : childrenVector) {
         if(it->isFile())
             cout << "FILE\t" ;
