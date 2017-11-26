@@ -26,6 +26,7 @@ void RmCommand::execute(FileSystem &fs) {
 	}
 	if (toRemove->isFile()) {
 		nh.getDeepestDirectoryInPath(fs, path).removeFile(toRemove);
+        //delete toRemove;
 	}
 	else if(toRemove == &(fs.getWorkingDirectory()) || toRemove == fs.getWorkingDirectory().getParent() || toRemove == &(fs.getRootDirectory()) ) {
 		cout << "Can't remove directory" << endl;
@@ -34,7 +35,7 @@ void RmCommand::execute(FileSystem &fs) {
 		((Directory*)toRemove)->getParent()->removeFile(toRemove);
 		((Directory*)toRemove)->deleteDir();
 	}
-	//delete toRemove;
+
 }
 
 string RmCommand::toString() {
