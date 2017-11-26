@@ -6,7 +6,7 @@
 using namespace std;
 
 
-FileSystem::FileSystem():rootDirectory(new Directory("/", nullptr)), workingDirectory(rootDirectory)  {}
+FileSystem::FileSystem():defaultName("/"), rootDirectory(new Directory(defaultName, nullptr)), workingDirectory(rootDirectory)  {}
 
 FileSystem:: ~FileSystem() {
 	rootDirectory->deleteDir();
