@@ -23,7 +23,6 @@ Directory::Directory(const Directory &other): BaseFile(other.getName()), childre
 	if (verbose == 1 || verbose == 3) {
 		cout << "Directory::Directory(const Directory &other)" << getName() << endl;
 	}
-    cout << "in copy ct: " << other.getName() << endl;
 
 	copyChildren(other);
 
@@ -85,6 +84,7 @@ void Directory::deleteDir() {
 		if (!(*it)->isFile()) {
 			((Directory*)(*it))->deleteDir();
 		}
+		children.erase(it);
 		delete *it;
 	}
 }
