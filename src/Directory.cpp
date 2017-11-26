@@ -165,18 +165,10 @@ string Directory::getAbsolutePath() {
     return absolutePath + getName();
 }
 
-bool Directory::isContainDirectory(string fileName) {
-	for (vector<BaseFile*>::iterator it = children.begin(); it != children.end(); ++it) {
-		if ((*it)->getName() == fileName && !(*it)->isFile()) {
-			return true;
-		}
-	}
-	return false;
-}
 
 bool Directory::isContainFile(string fileName) {
 	for (vector<BaseFile*>::iterator it = children.begin(); it != children.end(); ++it) {
-		if ((*it)->getName() == fileName && (*it)->isFile()) {
+		if ((*it)->getName() == fileName) {
 			return true;
 		}
 	}

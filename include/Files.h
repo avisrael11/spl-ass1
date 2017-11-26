@@ -72,8 +72,7 @@ public:
     string getAbsolutePath();  //Return the path from the root to this
 
 	virtual bool isFile();
-	bool isContainDirectory(string fileName);	//Return true if a directory with the specified name is in children
-	bool isContainFile(string fileName);		//Return true if a file with the specified name is in children
+	bool isContainFile(string fileName);		//Return true if a Basefile with the specified name is in children
 	BaseFile* getFileByName(string fileName);	//Return the file with the specified name from children, nullptr if not exist
 	int getDepth();								//Return the depth of the directory in the file system (root depth = 0)
 

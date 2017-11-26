@@ -21,7 +21,7 @@ void ExecCommand::execute(FileSystem &fs) {
         return;
     }
     else {
-        int size= stoi(str);
+        size_t size= stoi(str);
         if (size <= history.size()) {
             history[size]->execute(fs);
         }
