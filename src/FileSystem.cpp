@@ -12,9 +12,8 @@ FileSystem:: ~FileSystem() {
 }
 
 
-FileSystem::FileSystem(const FileSystem& other): rootDirectory(new Directory(other.getRootDirectory())){
+FileSystem::FileSystem(const FileSystem& other): rootDirectory(new Directory(other.getRootDirectory())), workingDirectory((Directory*)rootDirectory->getFileByName(other.getWorkingDirectory().getName())){
 
-	workingDirectory = (Directory*)rootDirectory->getFileByName(other.getWorkingDirectory().getName());
 }
 
 FileSystem::FileSystem(FileSystem&& other): rootDirectory(other.rootDirectory), workingDirectory(other.workingDirectory){
