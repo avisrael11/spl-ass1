@@ -80,11 +80,12 @@ Directory& Directory::operator=(Directory &&other) {
 }
 
 void Directory::deleteDir() {
-	for (vector<BaseFile*>::iterator it = children.begin(); it != children.end(); ++it) {
+	for (vector<BaseFile*>::iterator it = children.begin(); it != children.end(); ) {
 		if (!(*it)->isFile()) {
 			((Directory*)(*it))->deleteDir();
 		}
-		children.erase(it);
+		delete *it;
+		it = children.erase(it);
 	}
 }
 
