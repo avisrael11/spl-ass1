@@ -190,12 +190,13 @@ void Directory::copyChildren(const Directory& other) {
 		BaseFile* newBf;
 
 		if ((*it)->isFile()) {
-			newBf = new File((*it)->getName(), (*it)->getSize());
+			//newBf = new File((*it)->getName(), (*it)->getSize());
+            newBf = new File(*((File*)(*it)));
 		}
 		else {
 			newBf = new Directory(*((Directory*)(*it)));
 		}
-		children.push_back(newBf);
+		this->children.push_back(newBf);
 	}
 }
 
