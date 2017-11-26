@@ -7,8 +7,11 @@ using namespace std;
 
 
 FileSystem::FileSystem():rootDirectory(new Directory("/", nullptr)), workingDirectory(rootDirectory)  {}
+
 FileSystem:: ~FileSystem() {
 	rootDirectory->deleteDir();
+	rootDirectory 	 = nullptr;
+	workingDirectory = nullptr;
 }
 
 
