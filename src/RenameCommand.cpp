@@ -63,7 +63,7 @@ void RenameCommand::execute(FileSystem &fs) {
     if (bfOldName != nullptr) // if oldName == file or directory exist
     {
         if (!bfOldName->isFile() && fs.getWorkingDirectory().getAbsolutePath() == (*(Directory*)bfOldName).getAbsolutePath())  //if directory and equal working Directory
-            cout << "Can’t rename the working directory" << endl;
+            cout << "Can't rename the working directory" << endl;
         else{
             Directory* parentDir;
             if(bfOldName->isFile()){
