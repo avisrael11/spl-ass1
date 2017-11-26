@@ -84,8 +84,9 @@ void Directory::deleteDir() {
 		if (!(*it)->isFile()) {
 			((Directory*)(*it))->deleteDir();
 		}
-		children.erase(it);
 		delete *it;
+		children.erase(it);
+
 	}
 }
 
