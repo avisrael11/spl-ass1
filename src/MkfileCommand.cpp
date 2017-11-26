@@ -29,9 +29,9 @@ void MkfileCommand::execute(FileSystem &fs) {
     for (it = pathVector->begin(); it != pathVector->end(); it++) {
         BaseFile* bf = wd->getFileByName(*it);
         if (bf == nullptr && it+1==pathVector->end()){
-            //createNewFile(*pathVector, it, wd, size);
-            File* newfile = new File(*it, size);
-            wd->addFile(newfile);
+            createNewFile(*pathVector, it, wd, size);
+           // File* newfile = new File(*it, size);
+           // wd->addFile(newfile);
 
             break;
         }
