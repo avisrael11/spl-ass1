@@ -23,8 +23,9 @@ Directory::Directory(const Directory &other): BaseFile(other.getName()), childre
 	if (verbose == 1 || verbose == 3) {
 		cout << "Directory::Directory(const Directory &other)" << getName() << endl;
 	}
+    cout << "in copy ct: " << other.getName() << endl;
 
-//	copyChildren(other);
+	copyChildren(other);
 
 }
 Directory::Directory(Directory &&other) : BaseFile(other.getName()), children(), parent(other.getParent()){
