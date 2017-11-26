@@ -37,10 +37,18 @@ Environment::Environment(const Environment &other): commandsHistory(), fs(other.
 
 
 Environment::Environment(Environment &&other): commandsHistory(other.commandsHistory), fs(other.fs){
+    VerboseHandler vh;
+    if(vh.printRule5()){
+        cout << "Environment::Environment(const Environment &&other)" << endl;
+    }
 }
 
 
 Environment& Environment::operator=(const Environment &other){
+    VerboseHandler vh;
+    if(vh.printRule5()){
+        cout << "Environment& Environment::operator=(Environment &other)" << endl;
+    }
     if(this != &other){
         for (vector<BaseCommand*>::iterator it = commandsHistory.begin(); it != commandsHistory.end(); it++) {
             delete *it;
@@ -52,6 +60,10 @@ Environment& Environment::operator=(const Environment &other){
 }
 
 Environment& Environment::operator=(Environment &&other){
+    VerboseHandler vh;
+    if(vh.printRule5()){
+        cout << "Environment& Environment::operator=(Environment &&other)" << endl;
+    }
     if(this != &other){
         for (vector<BaseCommand*>::iterator it = commandsHistory.begin(); it != commandsHistory.end(); it++) {
             delete *it;
