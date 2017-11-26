@@ -19,7 +19,7 @@ void ErrorCommand::execute(FileSystem &fs) {
 }
 
 string ErrorCommand::toString() {
-    return "ErrorCommand";
+    return "";
 }
 
 ErrorCommand::~ErrorCommand() {

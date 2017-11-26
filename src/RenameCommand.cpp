@@ -94,7 +94,7 @@ RenameCommand::~RenameCommand() {
  */
 
 string RenameCommand::toString() {
-    return std::string();
+    return "rename";
 }
 
 RenameCommand::~RenameCommand() {
