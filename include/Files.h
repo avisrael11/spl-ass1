@@ -46,7 +46,6 @@ class Directory : public BaseFile {
 private:
     vector<BaseFile*> children;
     Directory *parent;
-	int depth;
 
 	void copyChildren(const Directory& other);
 
@@ -74,8 +73,6 @@ public:
 	virtual bool isFile();
 	bool isContainFile(string fileName);		//Return true if a Basefile with the specified name is in children
 	BaseFile* getFileByName(string fileName);	//Return the file with the specified name from children, nullptr if not exist
-	int getDepth();								//Return the depth of the directory in the file system (root depth = 0)
-
 
 };
 

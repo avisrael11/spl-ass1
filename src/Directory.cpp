@@ -11,7 +11,6 @@ using namespace std;
 
 Directory::Directory(string name, Directory *parent) : BaseFile(name), parent(parent){
 	if (parent != nullptr) {
-		depth = parent->getDepth() + 1;
 	}
 }
 
@@ -93,9 +92,6 @@ Directory *Directory::getParent() const {
     return parent;
 }
 
-int Directory::getDepth() {
-	return depth;
-}
 
 void Directory::setParent(Directory *newParent) {
     parent = newParent;
