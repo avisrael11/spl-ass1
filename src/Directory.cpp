@@ -24,7 +24,20 @@ Directory::Directory(const Directory &other): BaseFile(other.getName()), childre
 		cout << "Directory::Directory(const Directory &other)" << getName() << endl;
 	}
 
-	copyChildren(other);
+//	copyChildren(other);
+
+    for (vector<BaseFile*>::const_iterator it = other.children.begin(); it != other.children.end(); ++it) {
+        BaseFile* newBf;
+
+        if ((*it)->isFile()) {
+            //newBf = new File((*it)->getName(), (*it)->getSize());
+            newBf = new File(*((File*)(*it)));
+        }
+        else {
+            newBf = new Directory(*((Directory*)(*it)));
+        }
+        this->children.push_back(newBf);
+    }
 }
 Directory::Directory(Directory &&other) : BaseFile(other.getName()), children(), parent(other.getParent()){
 	if (verbose == 1 || verbose == 3) {
